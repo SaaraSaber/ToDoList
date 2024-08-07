@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ToDoList</string>
+
+    <string name="home">خانه</string>
+    <string name="search">جست وجو</string>
+    <string name="chart">نمودار</string>
 </resources>
