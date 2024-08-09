@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import ir.developer.todolist.database.dao.TabDao
 import ir.developer.todolist.datamodel.TabModel
 
 @Database(
@@ -13,6 +14,7 @@ import ir.developer.todolist.datamodel.TabModel
 )
 
 abstract class AppDataBase : RoomDatabase() {
+    abstract fun tab(): TabDao
 
     companion object {
         @Volatile
