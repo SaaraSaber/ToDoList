@@ -8,8 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import ir.developer.todolist.R
 import ir.developer.todolist.databinding.LayoutRecyclerViewTabBinding
 import ir.developer.todolist.datamodel.TabModel
+import ir.developer.todolist.global.ClickOnTab
 
-class TabAdapter(private val list: ArrayList<TabModel>, private val context: Context) :
+class TabAdapter(
+    private val list: ArrayList<TabModel>,
+    private val context: Context,
+    private val onClick: ClickOnTab
+) :
     RecyclerView.Adapter<TabAdapter.ViewHolder>() {
     private lateinit var binding: LayoutRecyclerViewTabBinding
 
@@ -42,6 +47,10 @@ class TabAdapter(private val list: ArrayList<TabModel>, private val context: Con
             //            holder.text.textColors =context.resources.getColor(R.color.white)
             holder.layout.background =
                 context.getDrawable(R.drawable.simple_background_recycler_unselected_tab)
+        }
+
+        holder.layout.setOnClickListener {
+            onClick.clickOnTab(holder.adapterPosition + 1, data.name)
         }
 
     }

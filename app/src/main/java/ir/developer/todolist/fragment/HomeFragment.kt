@@ -11,8 +11,9 @@ import ir.developer.todolist.adapter.TabAdapter
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.databinding.FragmentHomeBinding
 import ir.developer.todolist.datamodel.TabModel
+import ir.developer.todolist.global.ClickOnTab
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ClickOnTab {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapterTab: TabAdapter
     private lateinit var listTab: ArrayList<TabModel>
@@ -43,7 +44,7 @@ class HomeFragment : Fragment() {
 
     private fun setDataTab() {
         setDataListTab()
-        adapterTab = TabAdapter(listTab, requireActivity())
+        adapterTab = TabAdapter(list = listTab, context = requireActivity(), onClick = this)
     }
 
     private fun setDataListTab() {
@@ -54,5 +55,12 @@ class HomeFragment : Fragment() {
         readData.forEach {
             listTab.add(it)
         }
+    }
+
+    override fun clickOnTab(index: Int, name: String) {
+        listTab.forEach {
+            it.isSelected = it.id == index
+        }
+        adapterTab.notifyDataSetChanged()
     }
 }
