@@ -4,4 +4,6 @@
     <string name="home">خانه</string>
     <string name="search">جست وجو</string>
     <string name="chart">نمودار</string>
+
+    <string name="category">دسته بندی</string>
 </resources>

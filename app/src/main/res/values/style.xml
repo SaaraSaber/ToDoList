@@ -14,4 +14,16 @@
             <item name="android:layout_gravity">center</item>
     </style>
 
+    <style name="text_editText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontPath">fonts/yakanbakhmedium.ttf</item>
+    </style>
+
+    <style name="text_category" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/underwaterMoonlight</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="fontPath">fonts/yakanbakhmedium.ttf</item>
+    </style>
+
 </resources>

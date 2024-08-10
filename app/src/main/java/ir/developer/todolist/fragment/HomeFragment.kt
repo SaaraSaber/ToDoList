@@ -2,11 +2,17 @@ package ir.developer.todolist.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import ir.developer.todolist.R
 import ir.developer.todolist.adapter.TabAdapter
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.databinding.FragmentHomeBinding
@@ -31,7 +37,26 @@ class HomeFragment : Fragment(), ClickOnTab {
         super.onViewCreated(view, savedInstanceState)
 
         setDataToRecyclerViewTab()
+        setPopupMenuBtnMore()
+
     }
+
+    private fun setPopupMenuBtnMore() {
+        binding.btnMore.setOnClickListener {
+            val popupMenu: PopupMenu = PopupMenu(requireActivity(), binding.btnMore)
+            popupMenu.inflate(R.menu.toolbar_menu)
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.category -> {
+                        findNavController().navigate(R.id.action_homeFragment2_to_categoryFragment)
+                    }
+                }
+                true
+            }
+            popupMenu.show()
+        }
+    }
+
 
     private fun setDataToRecyclerViewTab() {
         setDataTab()

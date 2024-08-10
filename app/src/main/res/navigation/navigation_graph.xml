@@ -9,5 +9,14 @@
         android:id="@+id/homeFragment2"
         android:name="ir.developer.todolist.fragment.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment2_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="ir.developer.todolist.fragment.CategoryFragment"
+        android:label="CategoryFragment"
+        tools:layout="@layout/fragment_category"/>
 </navigation>
