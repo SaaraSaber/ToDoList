@@ -6,16 +6,19 @@
     android:layout_height="wrap_content"
     android:background="@drawable/simple_background_add_task"
     android:orientation="vertical"
+    android:layout_gravity="bottom"
     android:padding="@dimen/padding_all_screen">
 
 
     <EditText
+        android:id="@+id/edittext_enter_task"
         style="@style/text_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/simple_background_edit_text_add_task"
         android:hint="کار خود را وارد کنید"
         android:maxLength="50"
+        android:textDirection="rtl"
         android:maxLines="1"
         android:padding="@dimen/_15sdp"
         android:singleLine="true" />

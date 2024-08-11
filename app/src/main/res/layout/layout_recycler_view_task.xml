@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/simple_background_edit_text_add_task"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:layout_marginBottom="@dimen/_8sdp"
+    android:padding="@dimen/_5sdp">
+
+    <CheckBox
+        android:id="@+id/checkbox_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/text_task"
+        style="@style/text_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="انجام وظیفه امروز" />
+</LinearLayout>

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ir.developer.todolist.R
 import ir.developer.todolist.databinding.LayoutRecyclerViewTabBinding
@@ -54,4 +56,16 @@ class TabAdapter(
         }
 
     }
+
+    private val differCallback = object : DiffUtil.ItemCallback<TabModel>() {
+        override fun areItemsTheSame(oldItem: TabModel, newItem: TabModel): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(oldItem: TabModel, newItem: TabModel): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+    val differ = AsyncListDiffer(this, differCallback)
 }

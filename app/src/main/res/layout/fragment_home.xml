@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     android:padding="@dimen/padding_all_screen">
 
     <LinearLayout
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_between_object"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +27,9 @@
             android:id="@+id/btn_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/vector_more" />
+            android:src="@drawable/vector_more"
+            android:tint="@color/gray"
+            tools:ignore="UseAppTint" />
 
     </LinearLayout>
 
@@ -58,6 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/text_completed_task" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_8sdp"
