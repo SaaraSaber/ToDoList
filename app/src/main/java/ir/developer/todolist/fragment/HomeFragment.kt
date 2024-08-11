@@ -143,7 +143,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         }
     }
 
-    private lateinit var editText: EditText
+    private lateinit var editTextTask: EditText
 
     @SuppressLint("MissingInflatedId")
     private fun dialogAddTask() {
@@ -161,11 +161,11 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
             val btnSend = findViewById<View>(R.id.btn_send)
             val btnCategory = findViewById<View>(R.id.btn_category)
-            editText = findViewById(R.id.edittext_enter_task)
+            editTextTask = findViewById(R.id.edittext_enter_task)
             val btnAlarm = findViewById<View>(R.id.btn_alarm)
 
             btnSend.setOnClickListener {
-                if (editText.text.isNullOrEmpty()) {
+                if (editTextTask.text.isNullOrEmpty()) {
                     Toast.makeText(
                         requireContext(),
                         requireContext().getString(R.string.w_enter_task),
@@ -173,7 +173,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
                     ).show()
                 } else {
                     addTask()
-                    editText.text.clear()
+                    editTextTask.text.clear()
                 }
             }
             btnCategory.setOnClickListener { }
@@ -193,7 +193,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         dataBase.task().insertTask(
             TaskModel(
                 id = idTask,
-                task = editText.text.toString(),
+                task = editTextTask.text.toString(),
                 category = nameCategory,
                 isDoneTask = false
             )
@@ -208,7 +208,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         listTask.add(
             TaskModel(
                 id = idTask,
-                task = editText.text.toString(),
+                task = editTextTask.text.toString(),
                 category = nameCategory,
                 isDoneTask = false
             )
