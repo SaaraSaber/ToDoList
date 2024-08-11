@@ -9,7 +9,7 @@
         android:icon="@drawable/vector_search"
         android:title="@string/search" />
     <item
-        android:id="@+id/ChartFragment"
+        android:id="@+id/chartFragment"
         android:icon="@drawable/vector_chart"
         android:title="@string/chart" />
 </menu>

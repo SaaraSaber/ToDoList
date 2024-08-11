@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
@@ -50,10 +51,13 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         super.onViewCreated(view, savedInstanceState)
 
         dataBase = AppDataBase.getDatabase(requireActivity())
+
         setDataToRecyclerViewTab()
-        setPopupMenuBtnMore()
         readDataTask()
 
+        binding.btnMore.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment2_to_categoryFragment)
+        }
 
         binding.btnAddTask.setOnClickListener { dialogAddTask() }
     }
@@ -77,22 +81,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = adapterTasks
-        }
-    }
-
-    private fun setPopupMenuBtnMore() {
-        binding.btnMore.setOnClickListener {
-            val popupMenu: PopupMenu = PopupMenu(requireActivity(), binding.btnMore)
-            popupMenu.inflate(R.menu.toolbar_menu)
-            popupMenu.setOnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.category -> {
-                        findNavController().navigate(R.id.action_homeFragment2_to_categoryFragment)
-                    }
-                }
-                true
-            }
-            popupMenu.show()
         }
     }
 
@@ -179,7 +167,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         adapterTasks.differ.submitList(loadData())
         initRecyclerViewTasks()
     }
-
 
     private fun loadData(): ArrayList<TaskModel> {
         listTask.add(

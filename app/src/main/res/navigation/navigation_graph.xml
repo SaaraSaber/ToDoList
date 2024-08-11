@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/homeFragment2">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/homeFragment2"
+        android:id="@+id/homeFragment"
         android:name="ir.developer.todolist.fragment.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
@@ -19,4 +19,14 @@
         android:name="ir.developer.todolist.fragment.CategoryFragment"
         android:label="CategoryFragment"
         tools:layout="@layout/fragment_category"/>
+    <fragment
+        android:id="@+id/chartFragment"
+        android:name="ir.developer.todolist.fragment.ChartFragment"
+        android:label="ChartFragment"
+        tools:layout="@layout/fragment_chart"/>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="ir.developer.todolist.fragment.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search"/>
 </navigation>
