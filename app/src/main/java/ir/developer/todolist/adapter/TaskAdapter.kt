@@ -1,18 +1,12 @@
 package ir.developer.todolist.adapter
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ir.developer.todolist.R
-import ir.developer.todolist.databinding.LayoutRecyclerViewTabBinding
 import ir.developer.todolist.databinding.LayoutRecyclerViewTaskBinding
-import ir.developer.todolist.datamodel.TabModel
 import ir.developer.todolist.datamodel.TaskModel
-import ir.developer.todolist.global.ClickOnTab
 import ir.developer.todolist.global.ClickOnTask
 
 class TaskAdapter(private val onClick: ClickOnTask) :
@@ -48,7 +42,7 @@ class TaskAdapter(private val onClick: ClickOnTask) :
 //            var newPosition = holder.adapterPosition
 //            if (newPosition == -1)
 //                newPosition = 0
-            onClick.clickOnTask(holder.adapterPosition)
+            onClick.clickOnTask(holder.adapterPosition,holder.checkBox)
         }
 
     }

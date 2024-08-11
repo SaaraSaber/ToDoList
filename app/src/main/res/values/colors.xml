@@ -6,6 +6,7 @@
     <color name="colorBackground">#F9FFFF</color>
     <color name="colorBackgroundNavigation">#FDFFFE</color>
     <color name="snowDay">#F6F4EB</color>
+    <color name="snowDay200">#DCDCDC</color>
     <color name="medicalMask">#91C8E4</color>
     <color name="bluePromise">#749BC2</color>
     <color name="underwaterMoonlight">#4682A9</color>

@@ -6,5 +6,8 @@
     <string name="chart">نمودار</string>
 
     <string name="category">دسته بندی</string>
-    <string name="w_enter_task">دسته بندی</string>
+    <string name="w_enter_task">لطفا یک کار تعریف کنید</string>
+    <string name="text_dialog_question">آیا از حذف کار مورد نظر مطمئن هستید؟</string>
+    <string name="btn_yes">بله</string>
+    <string name="btn_no">خیر</string>
 </resources>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -42,11 +43,13 @@ class TabAdapter(
 
         holder.text.text = data.name
         if (data.isSelected) {
-//            holder.text.textColors =context.resources.getColor(R.color.gray)
+            holder.text.setTextColor(ContextCompat.getColor(context, R.color.white))
             holder.layout.background =
                 context.getDrawable(R.drawable.simple_background_recycler_selected_tab)
+
         } else {
-            //            holder.text.textColors =context.resources.getColor(R.color.white)
+
+            holder.text.setTextColor(ContextCompat.getColor(context, R.color.snowDay200))
             holder.layout.background =
                 context.getDrawable(R.drawable.simple_background_recycler_unselected_tab)
         }

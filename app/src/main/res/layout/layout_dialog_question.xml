@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/simple_background_dialog_question"
+    android:layout_marginStart="@dimen/_10sdp"
+    android:layout_marginEnd="@dimen/_10sdp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_all_screen">
+
+    <TextView
+        style="@style/text_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/text_dialog_question"
+        android:textSize="@dimen/_18ssp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_between_object"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_ok"
+            style="@style/text_task"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/btn_yes"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/underwaterMoonlight" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cansel"
+            style="@style/text_task"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/btn_no"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/medicalMask" />
+    </LinearLayout>
+
+
+</LinearLayout>

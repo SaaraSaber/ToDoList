@@ -7,19 +7,15 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.PopupWindow
 import android.widget.Toast
-import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.google.android.material.button.MaterialButton
 import ir.developer.todolist.R
 import ir.developer.todolist.adapter.TabAdapter
 import ir.developer.todolist.adapter.TaskAdapter
@@ -37,6 +33,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     private lateinit var listTask: ArrayList<TaskModel>
     private lateinit var dataBase: AppDataBase
     private lateinit var dialogAddTask: Dialog
+    private lateinit var dialogQuestion: Dialog
     private val adapterTasks by lazy { TaskAdapter(this) }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +57,45 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         }
 
         binding.btnAddTask.setOnClickListener { dialogAddTask() }
+    }
+
+    @SuppressLint("MissingInflatedId")
+    private fun dialogQuestion(index: Int, checkBox: CheckBox) {
+        dialogQuestion = Dialog(requireContext())
+        dialogQuestion.apply {
+            setContentView(R.layout.layout_dialog_question)
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window!!.setGravity(Gravity.CENTER)
+            window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            val lp = window!!.attributes
+            lp.dimAmount = 0.7f
+
+            val btnOk = findViewById<MaterialButton>(R.id.btn_ok)
+            val btnCansel = findViewById<MaterialButton>(R.id.btn_cansel)
+            btnOk.setOnClickListener {
+                dismiss()
+                dataBase.task().deleteTask(
+                    TaskModel(
+                        listTask[index].id,
+                        listTask[index].task,
+                        listTask[index].category,
+                        listTask[index].isDoneTask
+                    )
+                )
+                listTask.removeAt(index)
+                adapterTasks.differ.submitList(listTask)
+                adapterTasks.notifyItemRemoved(index)
+            }
+            btnCansel.setOnClickListener {
+                checkBox.isChecked = false
+                dismiss()
+            }
+
+            show()
+        }
     }
 
     private fun readDataTask() {
@@ -189,19 +225,10 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         adapterTab.notifyDataSetChanged()
     }
 
-    override fun clickOnTask(index: Int) {
+    override fun clickOnTask(index: Int, checkBox: CheckBox) {
         if (listTask.size != 0) {
-            dataBase.task().deleteTask(
-                TaskModel(
-                    listTask[index].id,
-                    listTask[index].task,
-                    listTask[index].category,
-                    listTask[index].isDoneTask
-                )
-            )
-            listTask.removeAt(index)
-            adapterTasks.differ.submitList(listTask)
-            adapterTasks.notifyItemRemoved(index)
+            dialogQuestion(index, checkBox)
+
         }
     }
 }
