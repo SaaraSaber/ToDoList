@@ -1,5 +1,6 @@
 package ir.developer.todolist.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,7 +10,7 @@ import ir.developer.todolist.databinding.LayoutRecyclerViewTaskBinding
 import ir.developer.todolist.datamodel.TaskModel
 import ir.developer.todolist.global.ClickOnTask
 
-class TaskAdapter(private val onClick: ClickOnTask) :
+class TaskAdapter(private val onClick: ClickOnTask, private val context: Context) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     private lateinit var binding: LayoutRecyclerViewTaskBinding
 
@@ -39,10 +40,11 @@ class TaskAdapter(private val onClick: ClickOnTask) :
         holder.bind(differ.currentList[position])
 
         holder.checkBox.setOnClickListener {
+
 //            var newPosition = holder.adapterPosition
 //            if (newPosition == -1)
 //                newPosition = 0
-            onClick.clickOnTask(holder.adapterPosition,holder.checkBox)
+            onClick.clickOnTask(holder.adapterPosition, holder.checkBox)
         }
 
     }

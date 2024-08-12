@@ -11,8 +11,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="@dimen/margin_between_object"
+        android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,19 +23,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/vector_more"
-
             android:tint="@color/gray"
             tools:ignore="UseAppTint" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_tabs"
             android:layout_width="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            android:layoutDirection="rtl"
-            tools:listitem="@layout/layout_recycler_view_tab"
-            tools:itemCount="4"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="4"
+            tools:listitem="@layout/layout_recycler_view_tab" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -44,28 +45,28 @@
         android:layout_marginTop="@dimen/margin_between_object"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/layout_recycler_view_task"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:itemCount="4"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        tools:listitem="@layout/layout_recycler_view_task" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/text_completed_task"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="@dimen/margin_between_object"-->
-<!--        android:text="کار های انجام شده"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/recycler_tasks" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/text_completed_task"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/margin_between_object"-->
+    <!--        android:text="کار های انجام شده"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/recycler_tasks" />-->
 
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recycler_completed_task"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="@dimen/margin_between_object"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/text_completed_task" />-->
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/recycler_completed_task"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="@dimen/margin_between_object"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/text_completed_task" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add_task"
@@ -77,7 +78,7 @@
         android:src="@drawable/vector_add"
         app:backgroundTint="@color/underwaterMoonlight"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:tint="@color/white" />
 
 

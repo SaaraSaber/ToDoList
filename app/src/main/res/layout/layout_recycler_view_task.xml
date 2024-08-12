@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,17 +11,23 @@
     android:orientation="horizontal"
     android:padding="@dimen/_5sdp">
 
-    <CheckBox
+
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/checkbox_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:background="@android:color/transparent"
+        android:backgroundTint="@color/underwaterMoonlight"
+        android:buttonTint="@color/underwaterMoonlight" />
 
     <TextView
         android:id="@+id/text_task"
         style="@style/text_task"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
         tools:text="انجام وظیفه امروز" />
 
 </LinearLayout>

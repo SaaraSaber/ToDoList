@@ -11,30 +11,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import ir.developer.todolist.R
+import ir.developer.todolist.adapter.CategoryAdapter
 import ir.developer.todolist.adapter.TabAdapter
 import ir.developer.todolist.adapter.TaskAdapter
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.databinding.FragmentHomeBinding
 import ir.developer.todolist.datamodel.TabModel
 import ir.developer.todolist.datamodel.TaskModel
+import ir.developer.todolist.global.ClickOnCategory
 import ir.developer.todolist.global.ClickOnTab
 import ir.developer.todolist.global.ClickOnTask
 
+@SuppressLint("MissingInflatedId")
 class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapterTab: TabAdapter
+    private lateinit var adapterCategory: CategoryAdapter
     private lateinit var listTab: ArrayList<TabModel>
     private lateinit var listTask: ArrayList<TaskModel>
     private lateinit var dataBase: AppDataBase
     private lateinit var dialogAddTask: Dialog
     private lateinit var dialogQuestion: Dialog
-    private val adapterTasks by lazy { TaskAdapter(this) }
+    private lateinit var dialogCategory: Dialog
+    private val adapterTasks by lazy { TaskAdapter(this, requireActivity()) }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,7 +68,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         binding.btnAddTask.setOnClickListener { dialogAddTask() }
     }
 
-    @SuppressLint("MissingInflatedId")
     private fun dialogQuestion(index: Int, checkBox: CheckBox) {
         dialogQuestion = Dialog(requireContext())
         dialogQuestion.apply {
@@ -144,8 +152,8 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     }
 
     private lateinit var editTextTask: EditText
+    private lateinit var btnCategory: TextView
 
-    @SuppressLint("MissingInflatedId")
     private fun dialogAddTask() {
         dialogAddTask = Dialog(requireContext())
         dialogAddTask.apply {
@@ -160,9 +168,10 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             lp.dimAmount = 0.7f
 
             val btnSend = findViewById<View>(R.id.btn_send)
-            val btnCategory = findViewById<View>(R.id.btn_category)
+            btnCategory = findViewById(R.id.btn_category)
             editTextTask = findViewById(R.id.edittext_enter_task)
             val btnAlarm = findViewById<View>(R.id.btn_alarm)
+            btnCategory.text = nameCategory
 
             btnSend.setOnClickListener {
                 if (editTextTask.text.isNullOrEmpty()) {
@@ -176,8 +185,50 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
                     editTextTask.text.clear()
                 }
             }
-            btnCategory.setOnClickListener { }
+            btnCategory.setOnClickListener { dialogCategory() }
+
             btnAlarm.setOnClickListener { }
+
+            show()
+        }
+    }
+
+    private fun dialogCategory() {
+        dialogCategory = Dialog(requireContext())
+        dialogCategory.apply {
+            setContentView(R.layout.layout_dialog_category)
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window!!.setGravity(Gravity.BOTTOM)
+            window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            val lp = window!!.attributes
+            lp.dimAmount = 0.7f
+
+            val recCategory = findViewById<RecyclerView>(R.id.recycler_category)
+//            val btnAddCategory = findViewById<TextView>(R.id.btn_add_category)
+
+            //init recyclerView
+            adapterCategory = CategoryAdapter(listTab, requireContext(), object : ClickOnCategory {
+                override fun clickOnTab(id: Int, index: Int, name: String) {
+
+                    nameCategory = name
+                    btnCategory.text = name
+
+                    listTab.forEachIndexed { index1, it ->
+                        if (id == it.id) {
+                            listTab[index].isSelected = true
+                        } else {
+                            listTab[index1].isSelected = false
+                        }
+                    }
+                    dialogCategory.dismiss()
+                }
+            })
+            recCategory.layoutManager =
+                LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+            recCategory.adapter = adapterCategory
 
             show()
         }
@@ -226,9 +277,19 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     }
 
     override fun clickOnTask(index: Int, checkBox: CheckBox) {
+        if (checkBox.isChecked) {
+            checkBox.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.underwaterMoonlight)
+            )
+        } else {
+            checkBox.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.black)
+            )
+        }
         if (listTask.size != 0) {
             dialogQuestion(index, checkBox)
 
         }
     }
+
 }
