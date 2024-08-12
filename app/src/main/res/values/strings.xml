@@ -10,4 +10,6 @@
     <string name="text_dialog_question">آیا از حذف کار مورد نظر مطمئن هستید؟</string>
     <string name="btn_yes">بله</string>
     <string name="btn_no">خیر</string>
+    <string name="btn_ok">تایید</string>
+    <string name="btn_cansel">انصراف</string>
 </resources>

@@ -2,17 +2,22 @@ package ir.developer.todolist.fragment
 
 import android.annotation.SuppressLint
 import android.app.Dialog
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.AlarmClock
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -42,6 +47,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     private lateinit var dialogAddTask: Dialog
     private lateinit var dialogQuestion: Dialog
     private lateinit var dialogCategory: Dialog
+    private lateinit var dialogAlarm: Dialog
     private val adapterTasks by lazy { TaskAdapter(this, requireActivity()) }
 
     override fun onCreateView(
@@ -187,9 +193,118 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             }
             btnCategory.setOnClickListener { dialogCategory() }
 
-            btnAlarm.setOnClickListener { }
+            btnAlarm.setOnClickListener { dialogAlarm() }
 
             show()
+        }
+    }
+
+    private lateinit var hour: String
+    private lateinit var min: String
+
+    @SuppressLint("DefaultLocale")
+    private fun dialogAlarm() {
+        dialogAlarm = Dialog(requireContext())
+        dialogAlarm.apply {
+            setContentView(R.layout.layout_dialog_select_time_alarm)
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window!!.setGravity(Gravity.CENTER)
+            window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            val lp = window!!.attributes
+            lp.dimAmount = 0.7f
+
+            val timeHour = findViewById<NumberPicker>(R.id.time_hour)
+            val timeMin = findViewById<NumberPicker>(R.id.time_min)
+            val btnOk = findViewById<View>(R.id.btn_ok)
+            val btnCansel = findViewById<View>(R.id.btn_cancel)
+
+            btnCansel.setOnClickListener { dialogAlarm.dismiss() }
+
+            timeMin.setFormatter { value -> String.format("%02d", value) }
+            timeHour.setFormatter { value -> String.format("%02d", value) }
+
+//................timeHour............
+            timeHour.maxValue = 23
+            timeHour.minValue = 0
+
+            hour = timeHour.value.toString()
+
+            if (hour.length == 1)
+                hour = "0$hour"
+
+            timeHour.setOnValueChangedListener { _, _, newVal ->
+                hour = newVal.toString()
+                if (hour.length == 1)
+                    hour = "0$hour"
+            }
+
+//...........timeMin................
+            timeMin.maxValue = 59
+            timeMin.minValue = 0
+
+            min = timeMin.value.toString()
+
+            if (min.length == 1)
+                min = "0$min"
+
+            timeMin.setOnValueChangedListener { _, _, newVal ->
+                min = newVal.toString()
+                if (min.length == 1)
+                    min = "0$min"
+            }
+
+
+            btnOk.setOnClickListener { getPermission() }
+
+            show()
+        }
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGrant ->
+
+            if (isGrant) {
+//           Alarm
+
+                val h = hour.subSequence(0, 2)
+                val m = min.subSequence(0, 2)
+
+                val intent = Intent(AlarmClock.ACTION_SET_ALARM)
+                intent.putExtra(AlarmClock.EXTRA_HOUR, h.toString().toInt())
+                intent.putExtra(AlarmClock.EXTRA_MINUTES, m.toString().toInt())
+                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "ALARM FOR APP TODOLIST..")
+
+                startActivity(intent)
+            }
+
+        }
+
+    private fun getPermission() {
+
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                android.Manifest.permission.SET_ALARM
+            )
+            == PackageManager.PERMISSION_DENIED
+        ) {
+
+            requestPermissionLauncher.launch(android.Manifest.permission.SET_ALARM)
+
+        } else {
+//           Alarm
+
+            val h = hour.subSequence(0, 2)
+            val m = min.subSequence(0, 2)
+
+            val intent = Intent(AlarmClock.ACTION_SET_ALARM)
+            intent.putExtra(AlarmClock.EXTRA_HOUR, h.toString().toInt())
+            intent.putExtra(AlarmClock.EXTRA_MINUTES, m.toString().toInt())
+            intent.putExtra(AlarmClock.EXTRA_MESSAGE, "ALARM FOR APP TODOLIST")
+
+            startActivity(intent)
         }
     }
 
@@ -198,7 +313,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         dialogCategory.apply {
             setContentView(R.layout.layout_dialog_category)
             window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            window!!.setGravity(Gravity.BOTTOM)
+            window!!.setGravity(Gravity.CENTER)
             window!!.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
