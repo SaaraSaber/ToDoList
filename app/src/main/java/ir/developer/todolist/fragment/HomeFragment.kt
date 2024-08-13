@@ -36,8 +36,9 @@ import ir.developer.todolist.global.ClickOnCategory
 import ir.developer.todolist.global.ClickOnTab
 import ir.developer.todolist.global.ClickOnTask
 
-@SuppressLint("MissingInflatedId")
+@SuppressLint("MissingInflatedId", "DefaultLocale")
 class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
+
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapterTab: TabAdapter
     private lateinit var adapterCategory: CategoryAdapter
@@ -194,6 +195,10 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
                 } else {
                     addTask()
                     editTextTask.text.clear()
+
+                    changTab()
+
+                    dismiss()
                 }
             }
             btnCategory.setOnClickListener { dialogCategory() }
@@ -204,10 +209,20 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         }
     }
 
+    private fun changTab() {
+        listTab.forEach {
+            if (it.name == nameCategory)
+                it.isSelected = true
+            else
+                it.isSelected = false
+        }
+        adapterTab.notifyDataSetChanged()
+    }
+
     private lateinit var hour: String
     private lateinit var min: String
 
-    @SuppressLint("DefaultLocale")
+
     private fun dialogAlarm() {
         dialogAlarm = Dialog(requireContext())
         dialogAlarm.apply {
@@ -327,7 +342,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             lp.dimAmount = 0.7f
 
             val recCategory = findViewById<RecyclerView>(R.id.recycler_category)
-//            val btnAddCategory = findViewById<TextView>(R.id.btn_add_category)
 
             //init recyclerView
             adapterCategory = CategoryAdapter(listTab, requireContext(), object : ClickOnCategory {
@@ -339,6 +353,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
                     listTab.forEachIndexed { index1, it ->
                         if (id == it.id) {
                             listTab[index].isSelected = true
+//                            adapterTab.notifyDataSetChanged()
                         } else {
                             listTab[index1].isSelected = false
                         }
@@ -371,7 +386,36 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         )
 
         //add task in list
+        if (nameCategory != "همه")
+            addNewTaskInSelectedCategory()
+        else
+            addNewTaskInCategoryAll()
+    }
+
+    private fun addNewTaskInCategoryAll() {
         adapterTasks.differ.submitList(loadData())
+        binding.imgEmptyList.visibility = View.GONE
+        initRecyclerViewTasks()
+    }
+
+    private fun addNewTaskInSelectedCategory() {
+        listTask.add(
+            TaskModel(
+                id = idTask,
+                task = editTextTask.text.toString(),
+                category = nameCategory,
+                isDoneTask = false
+            )
+        )
+        val newList = ArrayList<TaskModel>()
+
+        listTask.forEach {
+            if (it.category == nameCategory) {
+                newList.add(TaskModel(it.id, it.task, it.category, it.isDoneTask))
+            }
+        }
+
+        adapterTasks.differ.submitList(newList)
         binding.imgEmptyList.visibility = View.GONE
         initRecyclerViewTasks()
     }
@@ -395,6 +439,28 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             it.isSelected = it.id == index
         }
         adapterTab.notifyDataSetChanged()
+
+        if (name == "همه") {
+            newListTasks(listTask)
+            if (listTask.isEmpty()) binding.imgEmptyList.visibility = View.VISIBLE
+            else binding.imgEmptyList.visibility = View.GONE
+
+        } else {
+            val newList = listTask.filter { it.category == name }
+            newListTasks(newList)
+            if (newList.isEmpty()) binding.imgEmptyList.visibility = View.VISIBLE
+            else binding.imgEmptyList.visibility = View.GONE
+        }
+
+    }
+
+    private fun newListTasks(newList: List<TaskModel>) {
+        binding.recyclerTasks.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = adapterTasks
+        }
+        adapterTasks.differ.submitList(newList)
     }
 
     override fun clickOnTask(index: Int, checkBox: CheckBox) {
