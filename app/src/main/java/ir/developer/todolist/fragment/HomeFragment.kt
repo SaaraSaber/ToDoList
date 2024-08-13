@@ -364,7 +364,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
                     listTab.forEachIndexed { index1, it ->
                         if (id == it.id) {
                             listTab[index].isSelected = true
-//                            adapterTab.notifyDataSetChanged()
                         } else {
                             listTab[index1].isSelected = false
                         }
@@ -483,11 +482,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     private fun newListTasks(newList: List<TaskModel>) {
         newAdapterTask = TaskAdapter(object : ClickOnTask {
             override fun clickOnTask(index: Int, checkBox: CheckBox) {
-                Toast.makeText(
-                    requireContext(),
-                    "$index ${newList[index].task}",
-                    Toast.LENGTH_SHORT
-                ).show()
                 if (newList.isNotEmpty()) {
                     dialogQuestion(index, checkBox, newList, newAdapterTask)
                 }
