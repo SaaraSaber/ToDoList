@@ -49,7 +49,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     private lateinit var dialogQuestion: Dialog
     private lateinit var dialogCategory: Dialog
     private lateinit var dialogAlarm: Dialog
-    private val adapterTasks by lazy { TaskAdapter(this, requireActivity()) }
+    private val adapterTasks by lazy { TaskAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,7 +75,12 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         binding.btnAddTask.setOnClickListener { dialogAddTask() }
     }
 
-    private fun dialogQuestion(index: Int, checkBox: CheckBox) {
+    private fun dialogQuestion(
+        index: Int,
+        checkBox: CheckBox,
+        newList: List<TaskModel>,
+        adapter: TaskAdapter
+    ) {
         dialogQuestion = Dialog(requireContext())
         dialogQuestion.apply {
             setContentView(R.layout.layout_dialog_question)
@@ -92,28 +97,35 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             val btnCansel = findViewById<MaterialButton>(R.id.btn_cansel)
             btnOk.setOnClickListener {
                 dismiss()
-                dataBase.task().deleteTask(
-                    TaskModel(
-                        listTask[index].id,
-                        listTask[index].task,
-                        listTask[index].category,
-                        listTask[index].isDoneTask
-                    )
-                )
-                listTask.removeAt(index)
-                adapterTasks.differ.submitList(listTask)
-                adapterTasks.notifyItemRemoved(index)
 
-                if (listTask.size == 0)
-                    binding.imgEmptyList.visibility = View.VISIBLE
+                deleteTask(newList as ArrayList<TaskModel>, index, adapter)
             }
             btnCansel.setOnClickListener {
                 checkBox.isChecked = false
                 dismiss()
             }
-
+            setOnCancelListener {
+                checkBox.isChecked = false
+            }
             show()
         }
+    }
+
+    private fun deleteTask(task: ArrayList<TaskModel>, index: Int, adapter: TaskAdapter) {
+        dataBase.task().deleteTask(
+            TaskModel(
+                task[index].id,
+                task[index].task,
+                task[index].category,
+                task[index].isDoneTask
+            )
+        )
+        task.removeAt(index)
+        adapter.differ.submitList(task)
+        adapter.notifyItemRemoved(index)
+
+        if (task.size == 0)
+            binding.imgEmptyList.visibility = View.VISIBLE
     }
 
     private fun readDataTask() {
@@ -221,7 +233,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
     private lateinit var hour: String
     private lateinit var min: String
-
 
     private fun dialogAlarm() {
         dialogAlarm = Dialog(requireContext())
@@ -399,26 +410,31 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     }
 
     private fun addNewTaskInSelectedCategory() {
-        listTask.add(
-            TaskModel(
-                id = idTask,
-                task = editTextTask.text.toString(),
-                category = nameCategory,
-                isDoneTask = false
-            )
-        )
         val newList = ArrayList<TaskModel>()
 
-        listTask.forEach {
+        dataBase.task().readTasks().forEach {
             if (it.category == nameCategory) {
                 newList.add(TaskModel(it.id, it.task, it.category, it.isDoneTask))
             }
         }
 
-        adapterTasks.differ.submitList(newList)
+        adapterNewList = TaskAdapter(object : ClickOnTask {
+            override fun clickOnTask(index: Int, checkBox: CheckBox) {
+                if (newList.isNotEmpty()) {
+                    dialogQuestion(index, checkBox, newList, adapterNewList)
+                }
+            }
+        })
         binding.imgEmptyList.visibility = View.GONE
-        initRecyclerViewTasks()
+        binding.recyclerTasks.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = adapterNewList
+        }
+        adapterNewList.differ.submitList(newList)
     }
+
+    private lateinit var adapterNewList: TaskAdapter
 
     private fun loadData(): ArrayList<TaskModel> {
         listTask.add(
@@ -433,6 +449,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     }
 
     private var nameCategory = "همه"
+    private lateinit var newList: ArrayList<TaskModel>
     override fun clickOnTab(index: Int, name: String) {
         nameCategory = name
         listTab.forEach {
@@ -441,12 +458,20 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         adapterTab.notifyDataSetChanged()
 
         if (name == "همه") {
+
+            listTask.clear()
+            val task = dataBase.task().readTasks()
+            task.forEach {
+                listTask.add(it)
+            }
+
             newListTasks(listTask)
             if (listTask.isEmpty()) binding.imgEmptyList.visibility = View.VISIBLE
             else binding.imgEmptyList.visibility = View.GONE
 
         } else {
-            val newList = listTask.filter { it.category == name }
+            newList = ArrayList()
+            newList = listTask.filter { it.category == name } as ArrayList<TaskModel>
             newListTasks(newList)
             if (newList.isEmpty()) binding.imgEmptyList.visibility = View.VISIBLE
             else binding.imgEmptyList.visibility = View.GONE
@@ -454,28 +479,32 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
     }
 
+    private lateinit var newAdapterTask: TaskAdapter
     private fun newListTasks(newList: List<TaskModel>) {
+        newAdapterTask = TaskAdapter(object : ClickOnTask {
+            override fun clickOnTask(index: Int, checkBox: CheckBox) {
+                Toast.makeText(
+                    requireContext(),
+                    "$index ${newList[index].task}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                if (newList.isNotEmpty()) {
+                    dialogQuestion(index, checkBox, newList, newAdapterTask)
+                }
+            }
+        })
         binding.recyclerTasks.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = adapterTasks
+            adapter = newAdapterTask
         }
-        adapterTasks.differ.submitList(newList)
+        newAdapterTask.differ.submitList(newList)
     }
 
     override fun clickOnTask(index: Int, checkBox: CheckBox) {
-        if (checkBox.isChecked) {
-            checkBox.setTextColor(
-                ContextCompat.getColor(requireContext(), R.color.underwaterMoonlight)
-            )
-        } else {
-            checkBox.setTextColor(
-                ContextCompat.getColor(requireContext(), R.color.black)
-            )
-        }
-        if (listTask.size != 0) {
-            dialogQuestion(index, checkBox)
 
+        if (listTask.size != 0) {
+            dialogQuestion(index, checkBox, listTask, adapterTasks)
         }
 
     }

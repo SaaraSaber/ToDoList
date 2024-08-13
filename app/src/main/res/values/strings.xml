@@ -7,7 +7,7 @@
 
     <string name="category">دسته بندی</string>
     <string name="w_enter_task">لطفا یک کار تعریف کنید</string>
-    <string name="text_dialog_question">آیا از حذف کار مورد نظر مطمئن هستید؟</string>
+    <string name="text_dialog_question">آیا کار انتخاب شده را انجام داده اید؟</string>
     <string name="text_dialog_category">برای کار وارد شده یک دسته را انتخاب کنید.</string>
     <string name="btn_yes">بله</string>
     <string name="btn_no">خیر</string>
