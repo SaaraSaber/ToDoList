@@ -102,6 +102,9 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
                 listTask.removeAt(index)
                 adapterTasks.differ.submitList(listTask)
                 adapterTasks.notifyItemRemoved(index)
+
+                if (listTask.size == 0)
+                    binding.imgEmptyList.visibility = View.VISIBLE
             }
             btnCansel.setOnClickListener {
                 checkBox.isChecked = false
@@ -121,9 +124,11 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             task.forEach {
                 listTask.add(it)
             }
+
             initRecyclerViewTasks()
             adapterTasks.differ.submitList(listTask)
         }
+        if (listTask.size != 0) binding.imgEmptyList.visibility = View.GONE
     }
 
     private fun initRecyclerViewTasks() {
@@ -367,6 +372,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
         //add task in list
         adapterTasks.differ.submitList(loadData())
+        binding.imgEmptyList.visibility = View.GONE
         initRecyclerViewTasks()
     }
 
@@ -405,6 +411,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             dialogQuestion(index, checkBox)
 
         }
+
     }
 
 }
