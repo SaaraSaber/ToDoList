@@ -26,19 +26,23 @@
         android:layout_height="1dp"
         android:layout_weight="1" />
 
-    <TextView
-        style="@style/text_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:textColor="@color/gray"
-        tools:text="0" />
 
     <ImageView
-        android:layout_width="@dimen/_15sdp"
-        android:layout_height="@dimen/_15sdp"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:gravity="center"
-        android:src="@drawable/vector_more" />
+        android:src="@drawable/vector_edit"
+        android:tint="@color/underwaterMoonlight"
+        tools:ignore="UseAppTint" />
+
+    <ImageView
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:gravity="center"
+        android:src="@drawable/vector_bin"
+        android:tint="@color/underwaterMoonlight"
+        tools:ignore="UseAppTint" />
 
 </LinearLayout>
