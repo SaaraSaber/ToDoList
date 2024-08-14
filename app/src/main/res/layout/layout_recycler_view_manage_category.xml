@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_between_object"
+    android:layout_marginBottom="@dimen/_20sdp"
     android:gravity="center_vertical"
     android:layoutDirection="rtl"
     android:orientation="horizontal">
@@ -15,6 +15,7 @@
         android:src="@drawable/vector_dot" />
 
     <TextView
+        android:id="@+id/text_category"
         style="@style/text_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,19 +27,10 @@
         android:layout_height="1dp"
         android:layout_weight="1" />
 
-
     <ImageView
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:gravity="center"
-        android:src="@drawable/vector_edit"
-        android:tint="@color/underwaterMoonlight"
-        tools:ignore="UseAppTint" />
-
-    <ImageView
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
+        android:id="@+id/btn_delete"
+        android:layout_width="@dimen/_23sdp"
+        android:layout_height="@dimen/_23sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:gravity="center"
         android:src="@drawable/vector_bin"

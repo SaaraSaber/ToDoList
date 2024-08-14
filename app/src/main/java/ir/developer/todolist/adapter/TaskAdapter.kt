@@ -36,7 +36,7 @@ class TaskAdapter(private val onClick: ClickOnTask) :
     override fun getItemCount(): Int = differ.currentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       val data = holder.bind(differ.currentList[position])
+     holder.bind(differ.currentList[position])
 
 
         holder.checkBox.setOnClickListener {

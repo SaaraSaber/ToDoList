@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/simple_background_dialog_question"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_all_screen">
+
+
+    <TextView
+        style="@style/text_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="@string/create_new_category"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edittext_enter_category"
+        style="@style/text_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_between_object"
+        android:background="@drawable/simple_background_edit_text_add_task"
+        android:hint="نام دسته را وارد کنید"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:padding="@dimen/_15sdp"
+        android:singleLine="true"
+        android:textDirection="rtl" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_between_object"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_save"
+            style="@style/Widget.AppCompat.ActionButton.Overflow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/yakanbakhmedium"
+            android:text="@string/btn_ok"
+            android:textColor="@color/underwaterMoonlight"
+            android:textSize="@dimen/_16ssp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCansel"
+            style="@style/Widget.AppCompat.ActionButton.Overflow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/yakanbakhmedium"
+            android:text="@string/btn_cansel"
+            android:textColor="@color/bluePromise"
+            android:textSize="@dimen/_14ssp" />
+    </LinearLayout>
+
+
+</LinearLayout>

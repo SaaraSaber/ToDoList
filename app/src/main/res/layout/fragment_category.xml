@@ -19,17 +19,20 @@
         android:paddingEnd="@dimen/padding_all_screen">
 
         <ImageView
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:src="@drawable/vector_back"
             android:tint="@color/black"
             tools:ignore="UseAppTint" />
 
         <TextView
             style="@style/text_task"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="@dimen/_18ssp"
             android:text="@string/manage_category" />
     </LinearLayout>
 
@@ -38,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_between_object"
+        android:layout_marginBottom="@dimen/margin_between_object"
         android:background="@color/medicalMask"
         android:gravity="center"
         android:padding="@dimen/_5sdp"
@@ -67,6 +71,7 @@
                 tools:listitem="@layout/layout_recycler_view_manage_category" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddCategory"
                 style="@style/Widget.AppCompat.ActionButton.Overflow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,9 +80,9 @@
                 android:fontFamily="@font/yakanbakhmedium"
                 android:text="@string/new_category"
                 android:textColor="@color/underwaterMoonlight"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_16ssp"
                 app:icon="@drawable/vector_add"
-                app:iconSize="@dimen/_16sdp"
+                app:iconSize="@dimen/_14sdp"
                 app:iconTint="@color/underwaterMoonlight" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

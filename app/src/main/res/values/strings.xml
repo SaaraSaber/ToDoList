@@ -7,6 +7,7 @@
 
     <string name="category">دسته بندی</string>
     <string name="w_enter_task">لطفا یک کار تعریف کنید</string>
+    <string name="w_enter_category">لطفا یک نام تعریف کنید</string>
     <string name="text_dialog_question">آیا کار انتخاب شده را انجام داده اید؟</string>
     <string name="text_dialog_category">برای کار وارد شده یک دسته را انتخاب کنید.</string>
     <string name="btn_yes">بله</string>
@@ -16,4 +17,5 @@
     <string name="manage_category">مدیریت دسته بندی</string>
     <string name="text_manage_category">این دسته ها در صفحه اصلی نمایش داده میشود.</string>
     <string name="new_category">دسته جدید</string>
+    <string name="create_new_category">ساختن یک دسته بندی جدید</string>
 </resources>
