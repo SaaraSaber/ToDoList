@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_all_screen">
 
-    <TextView
+    <SearchView
+        android:id="@+id/search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="search"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:iconifiedByDefault="false"
+        android:layoutDirection="rtl"
+        android:textDirection="rtl"
+        android:padding="4dp"
+        android:queryHint="جست وجو..." />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_result_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_between_object"
+                android:visibility="visible"
+                tools:itemCount="5"
+                tools:listitem="@layout/layout_recycler_view_task" />
+
+            <ImageView
+                android:id="@+id/img_empty_list"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:src="@drawable/pic_empty_list" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
 </LinearLayout>
