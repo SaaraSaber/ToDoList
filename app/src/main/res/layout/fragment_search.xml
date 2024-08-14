@@ -15,9 +15,9 @@
         android:layout_margin="8dp"
         android:iconifiedByDefault="false"
         android:layoutDirection="rtl"
-        android:textDirection="rtl"
         android:padding="4dp"
-        android:queryHint="جست وجو..." />
+        android:queryHint="جست وجو..."
+        android:textDirection="rtl" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -45,6 +45,18 @@
                 android:layout_height="@dimen/_200sdp"
                 android:layout_marginTop="@dimen/_100sdp"
                 android:src="@drawable/pic_empty_list" />
+
+            <TextView
+                android:id="@+id/textNoData"
+                style="@style/text_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:gravity="center"
+                android:text="متاسفانه چیزی پیدا نشد!"
+                android:textSize="@dimen/_20ssp"
+                android:visibility="gone"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
