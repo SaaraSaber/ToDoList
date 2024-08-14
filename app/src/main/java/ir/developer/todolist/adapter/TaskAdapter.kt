@@ -12,6 +12,7 @@ import ir.developer.todolist.global.ClickOnTask
 class TaskAdapter(private val onClick: ClickOnTask) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     private lateinit var binding: LayoutRecyclerViewTaskBinding
+    private lateinit var listTask: List<TaskModel>
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
         fun bind(taskModel: TaskModel) {
@@ -36,8 +37,9 @@ class TaskAdapter(private val onClick: ClickOnTask) :
     override fun getItemCount(): Int = differ.currentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-     holder.bind(differ.currentList[position])
+        holder.bind(differ.currentList[position])
 
+        listTask = differ.currentList
 
         holder.checkBox.setOnClickListener {
             onClick.clickOnTask(
@@ -45,8 +47,13 @@ class TaskAdapter(private val onClick: ClickOnTask) :
                 holder.checkBox
             )
         }
-
     }
+
+    fun setFilteredList(list: List<TaskModel>) {
+        listTask = list
+//        notifyDataSetChanged()
+    }
+
 
     private val differCallback = object : DiffUtil.ItemCallback<TaskModel>() {
         override fun areItemsTheSame(oldItem: TaskModel, newItem: TaskModel): Boolean {

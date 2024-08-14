@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
@@ -18,6 +20,7 @@ import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.databinding.FragmentSearchBinding
 import ir.developer.todolist.datamodel.TaskModel
 import ir.developer.todolist.global.ClickOnTask
+import java.util.Locale
 
 class SearchFragment : Fragment(), ClickOnTask {
     private lateinit var binding: FragmentSearchBinding
@@ -41,8 +44,47 @@ class SearchFragment : Fragment(), ClickOnTask {
         dataBase = AppDataBase.getDatabase(requireActivity())
 
         readDataTask()
+        clickOnSearchView()
 
     }
+
+    private fun clickOnSearchView() {
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return false
+
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return false
+            }
+        })
+    }
+
+    private fun filterList(newText: String?) {
+        if (newText != null) {
+            val filterList = ArrayList<TaskModel>()
+            for (i in listTask) {
+                if (i.task.lowercase(Locale.ROOT).contains(newText)) {
+                    filterList.add(i)
+                }
+            }
+
+            if (filterList.isEmpty()) {
+                Toast.makeText(requireContext(), "متاسفانه کاری پیدا نشده", Toast.LENGTH_SHORT)
+                    .show()
+                initRecyclerViewResultTask()
+                adapterTask.differ.submitList(filterList)
+            } else {
+                initRecyclerViewResultTask()
+                adapterTask.differ.submitList(filterList)
+                adapterTask.setFilteredList(filterList)
+            }
+        }
+    }
+
 
     private fun readDataTask() {
         listTask = ArrayList()
