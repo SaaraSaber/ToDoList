@@ -13,9 +13,12 @@
     <string name="btn_yes">بله</string>
     <string name="btn_no">خیر</string>
     <string name="btn_ok">تایید</string>
+    <string name="btn_exit">خروج</string>
+    <string name="btn_exit_cansel">هنوز کار دارم</string>
     <string name="btn_cansel">انصراف</string>
     <string name="manage_category">مدیریت دسته بندی</string>
     <string name="text_manage_category">این دسته ها در صفحه اصلی نمایش داده میشود.</string>
     <string name="new_category">دسته جدید</string>
     <string name="create_new_category">ساختن یک دسته بندی جدید</string>
+    <string name="text_exit">کار های امروزم را وارد کردم و میخواهم از برنامه خارج بشوم</string>
 </resources>

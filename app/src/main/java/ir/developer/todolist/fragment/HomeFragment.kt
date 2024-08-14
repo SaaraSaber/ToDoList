@@ -7,8 +7,11 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.AlarmClock
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +21,7 @@ import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat.finishAfterTransition
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -499,6 +503,74 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
         if (listTask.size != 0) {
             dialogQuestion(index, checkBox, listTask, adapterTasks)
+        }
+
+    }
+
+    private fun exitApp() {
+        requireActivity().overridePendingTransition(
+            R.anim.exit_anim,
+            0
+        ) // Disable default activity transition
+        finishAfterTransition(requireActivity()) // Finish activity with exit animation
+    }
+
+    private var doubleBackToExitPressedOnce = false
+    override fun onResume() {
+        super.onResume()
+
+        if (view == null) {
+            return
+        }
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { _, keyCode, event ->
+            if (event.action === KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                // handle back button's click listener
+
+                if (doubleBackToExitPressedOnce) {
+//                    exitProcess(0)
+                    exitApp()
+                    return@setOnKeyListener true
+                }
+
+                doubleBackToExitPressedOnce = true
+
+                dialogExitApp()
+
+                Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                    doubleBackToExitPressedOnce = false
+                }, 2000)
+
+                true
+
+            } else false
+        }
+
+    }
+
+    private lateinit var dialogExitApp: Dialog
+    private fun dialogExitApp() {
+        dialogExitApp = Dialog(requireContext())
+
+        dialogExitApp.apply {
+            setContentView(R.layout.layout_dialog_exit_app)
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window!!.setGravity(Gravity.CENTER)
+            window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            val lp = window!!.attributes
+            lp.dimAmount = 0.7f
+
+            val btnExit = findViewById<View>(R.id.btn_exit)
+            val btnCansel = findViewById<View>(R.id.btn_cansel)
+
+            btnExit.setOnClickListener { exitApp() }
+            btnCansel.setOnClickListener { dismiss()  }
+
+            show()
         }
 
     }
