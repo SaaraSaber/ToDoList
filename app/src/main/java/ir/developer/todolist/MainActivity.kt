@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             when (destination.id) {
-                R.id.splashFragment -> {
-                    binding.bottomNavigation.visibility = View.GONE
-                }
+//                R.id.splashFragment -> {
+//                    binding.bottomNavigation.visibility = View.GONE
+//                }
                 R.id.categoryFragment -> {
                     binding.bottomNavigation.visibility = View.GONE
                 }
