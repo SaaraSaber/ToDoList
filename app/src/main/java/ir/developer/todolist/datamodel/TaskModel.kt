@@ -8,6 +8,4 @@ data class TaskModel(
     @PrimaryKey
     val id: Int,
     val task: String,
-    val category: String,
-    val isDoneTask: Boolean
-)
+    val category: String, )

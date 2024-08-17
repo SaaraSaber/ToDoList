@@ -10,10 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.button.MaterialButton
 import ir.developer.todolist.R
 import ir.developer.todolist.adapter.ManageCategoryAdapter
 import ir.developer.todolist.database.AppDataBase
@@ -28,6 +30,7 @@ class CategoryFragment : Fragment(), ClickOnCategory {
     private lateinit var listCategory: ArrayList<TabModel>
     private lateinit var dataBase: AppDataBase
     private lateinit var dialogAddCategory: Dialog
+    private lateinit var dialogQuestion: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -144,7 +147,7 @@ class CategoryFragment : Fragment(), ClickOnCategory {
     }
 
     override fun clickOnTab(id: Int, index: Int, name: String) {
-        deleteCategory(index)
+        dialogQuestion(index)
     }
 
     private fun deleteCategory(index: Int) {
@@ -157,5 +160,38 @@ class CategoryFragment : Fragment(), ClickOnCategory {
         listCategory.removeAt(index)
         adapterManageCategory.differ.submitList(listCategory)
         adapterManageCategory.notifyItemRemoved(index)
+    }
+
+    private fun dialogQuestion(index: Int) {
+
+        dialogQuestion = Dialog(requireContext())
+        dialogQuestion.apply {
+            setContentView(R.layout.layout_dialog_question)
+            window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window!!.setGravity(Gravity.CENTER)
+            window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            val lp = window!!.attributes
+            lp.dimAmount = 0.7f
+
+            val btnOk = findViewById<MaterialButton>(R.id.btn_ok)
+            val btnCansel = findViewById<MaterialButton>(R.id.btn_cansel)
+            val textQuestion = findViewById<TextView>(R.id.text_question)
+
+            textQuestion.text = requireContext().getString(R.string.text_question_delete_category)
+
+            btnOk.setOnClickListener {
+                dismiss()
+                deleteCategory(index)
+
+            }
+            btnCansel.setOnClickListener {
+                dismiss()
+            }
+
+            show()
+        }
     }
 }

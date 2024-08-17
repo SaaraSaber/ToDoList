@@ -59,4 +59,6 @@ dependencies {
     implementation(libs.calligraphy)
     implementation(libs.viewpump)
     implementation(libs.lottie)
+    implementation(libs.pie.chart)
+    implementation(libs.mp.android.chart)
 }

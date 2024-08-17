@@ -15,6 +15,8 @@ sdp-android = "1.1.0"
 calligraphy = "3.1.1"
 viewpump = "2.0.3"
 lottie = "5.0.3"
+pieChart = "1.1.5"
+mp-android-chart = "v3.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +41,9 @@ calligraphy = { group = "io.github.inflationx", name = "calligraphy3", version.r
 viewpump = { group = "io.github.inflationx", name = "viewpump", version.ref = "viewpump" }
 #lottie
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
+#pieChart
+pie-chart = { group = "com.github.AnyChart", name = "AnyChart-Android", version.ref = "pieChart" }
+mp-android-chart= { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "mp-android-chart" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

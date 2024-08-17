@@ -13,6 +13,7 @@
     android:padding="@dimen/padding_all_screen">
 
     <TextView
+        android:id="@+id/text_question"
         style="@style/text_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

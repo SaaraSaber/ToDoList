@@ -4,20 +4,23 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import ir.developer.todolist.database.dao.CompletedTaskDao
 import ir.developer.todolist.database.dao.TabDao
 import ir.developer.todolist.database.dao.TaskDao
+import ir.developer.todolist.datamodel.CompletedTaskModel
 import ir.developer.todolist.datamodel.TabModel
 import ir.developer.todolist.datamodel.TaskModel
 
 @Database(
-    entities = [TabModel::class, TaskModel::class],
-    version = 3,
+    entities = [TabModel::class, TaskModel::class, CompletedTaskModel::class],
+    version = 4,
     exportSchema = true
 )
 
 abstract class AppDataBase : RoomDatabase() {
     abstract fun tab(): TabDao
     abstract fun task(): TaskDao
+    abstract fun completedTask(): CompletedTaskDao
 
     companion object {
         @Volatile

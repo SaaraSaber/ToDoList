@@ -34,6 +34,7 @@ import ir.developer.todolist.adapter.TabAdapter
 import ir.developer.todolist.adapter.TaskAdapter
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.databinding.FragmentHomeBinding
+import ir.developer.todolist.datamodel.CompletedTaskModel
 import ir.developer.todolist.datamodel.TabModel
 import ir.developer.todolist.datamodel.TaskModel
 import ir.developer.todolist.global.ClickOnCategory
@@ -120,28 +121,68 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             TaskModel(
                 task[index].id,
                 task[index].task,
-                task[index].category,
-                task[index].isDoneTask
+                task[index].category
             )
         )
         task.removeAt(index)
         adapter.differ.submitList(task)
         adapter.notifyItemRemoved(index)
 
-        if (task.size == 0)
+
+
+        if (task.size == 0){
             binding.imgEmptyList.visibility = View.VISIBLE
+            //add data to database completedTask
+
+            dataBase.completedTask()
+                .updateTask(
+                    CompletedTaskModel(
+                        id = 1,
+                        allTask = 0,
+                        completedTask = 0,
+                        notDoneTask = 0
+                    )
+                )
+        }else{
+            //add data to database completedTask
+            val readAllTask = dataBase.completedTask().readTasks().allTask
+            val completedTask = dataBase.completedTask().readTasks().completedTask
+            val notDoneTask = dataBase.completedTask().readTasks().notDoneTask
+            dataBase.completedTask()
+                .updateTask(
+                    CompletedTaskModel(
+                        id = 1,
+                        allTask = readAllTask,
+                        completedTask = completedTask + 1,
+                        notDoneTask = notDoneTask - 1
+                    )
+                )
+        }
     }
 
     private fun readDataTask() {
         listTask = ArrayList()
         val task = dataBase.task().readTasks()
+        val allTask = dataBase.completedTask().readTasks().allTask
+        val completedTask = dataBase.completedTask().readTasks().completedTask
+
 
         if (task != null) {
 
             task.forEach {
                 listTask.add(it)
             }
-
+            if (allTask == 0) {
+                dataBase.completedTask()
+                    .updateTask(
+                        CompletedTaskModel(
+                            id = 1,
+                            allTask = listTask.size,
+                            completedTask = completedTask,
+                            notDoneTask = listTask.size
+                        )
+                    )
+            }
             initRecyclerViewTasks()
             adapterTasks.differ.submitList(listTask)
         }
@@ -219,7 +260,17 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             }
             btnCategory.setOnClickListener { dialogCategory() }
 
-            btnAlarm.setOnClickListener { dialogAlarm() }
+            btnAlarm.setOnClickListener {
+                if (editTextTask.text.isNullOrEmpty()) {
+                    Toast.makeText(
+                        requireContext(),
+                        requireContext().getString(R.string.w_enter_task2),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    dialogAlarm()
+                }
+            }
 
             show()
         }
@@ -310,7 +361,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
                 val intent = Intent(AlarmClock.ACTION_SET_ALARM)
                 intent.putExtra(AlarmClock.EXTRA_HOUR, h.toString().toInt())
                 intent.putExtra(AlarmClock.EXTRA_MINUTES, m.toString().toInt())
-                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "ALARM FOR APP TODOLIST..")
+                intent.putExtra(AlarmClock.EXTRA_MESSAGE, "set alarm for ${editTextTask.text}")
 
                 startActivity(intent)
             }
@@ -337,7 +388,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             val intent = Intent(AlarmClock.ACTION_SET_ALARM)
             intent.putExtra(AlarmClock.EXTRA_HOUR, h.toString().toInt())
             intent.putExtra(AlarmClock.EXTRA_MINUTES, m.toString().toInt())
-            intent.putExtra(AlarmClock.EXTRA_MESSAGE, "ALARM FOR APP TODOLIST")
+            intent.putExtra(AlarmClock.EXTRA_MESSAGE, "set alarm for ${editTextTask.text}")
 
             startActivity(intent)
         }
@@ -359,22 +410,23 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             val recCategory = findViewById<RecyclerView>(R.id.recycler_category)
 
             //init recyclerView
-            adapterCategory = CategoryAdapter(listTab, requireContext(), object : ClickOnCategory {
-                override fun clickOnTab(id: Int, index: Int, name: String) {
+            adapterCategory =
+                CategoryAdapter(listTab, requireContext(), object : ClickOnCategory {
+                    override fun clickOnTab(id: Int, index: Int, name: String) {
 
-                    nameCategory = name
-                    btnCategory.text = name
+                        nameCategory = name
+                        btnCategory.text = name
 
-                    listTab.forEachIndexed { index1, it ->
-                        if (id == it.id) {
-                            listTab[index].isSelected = true
-                        } else {
-                            listTab[index1].isSelected = false
+                        listTab.forEachIndexed { index1, it ->
+                            if (id == it.id) {
+                                listTab[index].isSelected = true
+                            } else {
+                                listTab[index1].isSelected = false
+                            }
                         }
+                        dialogCategory.dismiss()
                     }
-                    dialogCategory.dismiss()
-                }
-            })
+                })
             recCategory.layoutManager =
                 LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
             recCategory.adapter = adapterCategory
@@ -394,10 +446,23 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             TaskModel(
                 id = idTask,
                 task = editTextTask.text.toString(),
-                category = nameCategory,
-                isDoneTask = false
+                category = nameCategory
             )
         )
+
+        //add data to database completedTask
+        val readAllTask = dataBase.completedTask().readTasks().allTask
+        val completedTask = dataBase.completedTask().readTasks().completedTask
+        val notDoneTask = dataBase.completedTask().readTasks().notDoneTask
+        dataBase.completedTask()
+            .updateTask(
+                CompletedTaskModel(
+                    id = 1,
+                    allTask = readAllTask + 1,
+                    completedTask = completedTask,
+                    notDoneTask = notDoneTask + 1
+                )
+            )
 
         //add task in list
         if (nameCategory != "همه")
@@ -417,7 +482,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
         dataBase.task().readTasks().forEach {
             if (it.category == nameCategory) {
-                newList.add(TaskModel(it.id, it.task, it.category, it.isDoneTask))
+                newList.add(TaskModel(it.id, it.task, it.category))
             }
         }
 
@@ -444,14 +509,13 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             TaskModel(
                 id = idTask,
                 task = editTextTask.text.toString(),
-                category = nameCategory,
-                isDoneTask = false
+                category = nameCategory
             )
         )
         return listTask
     }
 
-    private var nameCategory = "همه"
+    private lateinit var nameCategory: String
     private lateinit var newList: ArrayList<TaskModel>
     override fun clickOnTab(index: Int, name: String) {
         nameCategory = name
@@ -519,6 +583,8 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     override fun onResume() {
         super.onResume()
 
+        nameCategory = "همه"
+
         if (view == null) {
             return
         }
@@ -568,7 +634,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             val btnCansel = findViewById<View>(R.id.btn_cansel)
 
             btnExit.setOnClickListener { exitApp() }
-            btnCansel.setOnClickListener { dismiss()  }
+            btnCansel.setOnClickListener { dismiss() }
 
             show()
         }

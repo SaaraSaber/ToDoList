@@ -157,9 +157,7 @@ class SearchFragment : Fragment(), ClickOnTask {
             TaskModel(
                 listTask[index].id,
                 listTask[index].task,
-                listTask[index].category,
-                listTask[index].isDoneTask
-            )
+                listTask[index].category)
         )
         listTask.removeAt(index)
         adapterTask.differ.submitList(listTask)
