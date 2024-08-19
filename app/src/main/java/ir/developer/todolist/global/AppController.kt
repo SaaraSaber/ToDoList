@@ -3,7 +3,6 @@ package ir.developer.todolist.global
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.datamodel.CompletedTaskModel
 import ir.developer.todolist.datamodel.TabModel
@@ -16,20 +15,22 @@ class AppController : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val channelId = "alarm_id"
-        val channelName = "alarm_name"
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channel = NotificationChannel(
-            channelId,
-            channelName,
-            NotificationManager.IMPORTANCE_HIGH
-        )
-        notificationManager.createNotificationChannel(channel)
+        createNotificationChannel()
 
         if (!checkEnterToAppForFirst()) {
             saveEnterToAppForFirst()
         }
+    }
+
+    private fun createNotificationChannel() {
+        val channel = NotificationChannel(
+            "alarm_id",
+            "alarm_name",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        val manager = getSystemService(NotificationManager::class.java)
+        manager.createNotificationChannel(channel)
+
     }
 
     private lateinit var sharedPreferencesGame: SharedPreferencesGame
