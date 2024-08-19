@@ -1,6 +1,8 @@
 package ir.developer.todolist
 
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -28,13 +30,13 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
 
-//        window.navigationBarColor = ContextCompat.getColor(this, R.color.Watery)
         window.statusBarColor = ContextCompat.getColor(this, R.color.colorBackground)
 
         navController = findNavController(R.id.my_nav_host_fragment)
         binding.bottomNavigation.setupWithNavController(navController)
 
         requestNotificationPermission()
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             when (destination.id) {
@@ -59,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("POST_NOTIFICATION_PERMISSION", "USER DENIED PERMISSION")
             } else {
                 Log.d("POST_NOTIFICATION_PERMISSION", "USER GRANTED PERMISSION")
+                createNotificationChannel()
             }
         }
 
@@ -70,12 +73,12 @@ class MainActivity : AppCompatActivity() {
                     this, permission
                 ) == PackageManager.PERMISSION_GRANTED -> {
                     // Action to take when permission is already granted
-                    Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show()
+
+                    createNotificationChannel()
                 }
 
                 shouldShowRequestPermissionRationale(permission) -> {
                     // Action to take when permission was denied
-//                    Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show()
                     requestPermissionLauncher.launch(permission)
                 }
 
@@ -88,5 +91,16 @@ class MainActivity : AppCompatActivity() {
             // Device does not support required permission
             Toast.makeText(this, "No required permission", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun createNotificationChannel() {
+        val channel = NotificationChannel(
+            "alarm_id",
+            "alarm_name",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        val manager = getSystemService(NotificationManager::class.java)
+        manager.createNotificationChannel(channel)
+
     }
 }

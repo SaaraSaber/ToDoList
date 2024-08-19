@@ -3,7 +3,7 @@
 
     <string name="home">خانه</string>
     <string name="search">جست وجو</string>
-    <string name="chart">نمودار</string>
+    <string name="chart">وضعیت پیشرفت</string>
 
     <string name="category">دسته بندی</string>
     <string name="w_enter_task">لطفا یک کار تعریف کنید</string>

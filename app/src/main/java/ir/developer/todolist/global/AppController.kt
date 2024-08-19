@@ -15,7 +15,7 @@ class AppController : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        createNotificationChannel()
+//        createNotificationChannel()
 
         if (!checkEnterToAppForFirst()) {
             saveEnterToAppForFirst()
