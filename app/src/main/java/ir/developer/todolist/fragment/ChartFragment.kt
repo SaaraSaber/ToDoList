@@ -50,7 +50,7 @@ class ChartFragment : Fragment() {
 
         binding.pieChart.description.isEnabled = false
 //        binding.pieChart.setUsePercentValues(true)
-        binding.pieChart.isDrawHoleEnabled = false
+        binding.pieChart.isDrawHoleEnabled = true
 //        binding.pieChart.setEntryLabelColor(R.color.white)
         binding.pieChart.animateY(1400, Easing.EaseInOutQuad)
         binding.pieChart.invalidate() // Refresh chart

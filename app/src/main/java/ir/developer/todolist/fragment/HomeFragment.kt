@@ -1,7 +1,10 @@
 package ir.developer.todolist.fragment
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.app.Dialog
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -32,6 +35,7 @@ import ir.developer.todolist.R
 import ir.developer.todolist.adapter.CategoryAdapter
 import ir.developer.todolist.adapter.TabAdapter
 import ir.developer.todolist.adapter.TaskAdapter
+import ir.developer.todolist.broadcast.AlarmReceiver
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.databinding.FragmentHomeBinding
 import ir.developer.todolist.datamodel.CompletedTaskModel
@@ -40,6 +44,7 @@ import ir.developer.todolist.datamodel.TaskModel
 import ir.developer.todolist.global.ClickOnCategory
 import ir.developer.todolist.global.ClickOnTab
 import ir.developer.todolist.global.ClickOnTask
+import java.util.Calendar
 
 @SuppressLint("MissingInflatedId", "DefaultLocale")
 class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
@@ -130,7 +135,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
 
 
-        if (task.size == 0){
+        if (task.size == 0) {
             binding.imgEmptyList.visibility = View.VISIBLE
             //add data to database completedTask
 
@@ -143,7 +148,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
                         notDoneTask = 0
                     )
                 )
-        }else{
+        } else {
             //add data to database completedTask
             val readAllTask = dataBase.completedTask().readTasks().allTask
             val completedTask = dataBase.completedTask().readTasks().completedTask
@@ -342,11 +347,42 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
                     min = "0$min"
             }
 
+            btnOk.setOnClickListener {
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.HOUR_OF_DAY, timeHour.value)
+                calendar.set(Calendar.MINUTE, timeMin.value)
+                calendar.set(Calendar.SECOND, 0)
+                calendar.set(Calendar.MILLISECOND, 0)
 
-            btnOk.setOnClickListener { getPermission() }
+                setAlarm(calendar.timeInMillis)
+                dialogAlarm.dismiss()
+            }
 
+
+//            btnOk.setOnClickListener { getPermission() }
             show()
         }
+    }
+
+    private fun setAlarm(timeInMillis: Long) {
+        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val intent = Intent(context, AlarmReceiver::class.java).apply {
+
+            putExtra("EXTRA_MESSAGE",editTextTask.text.toString())
+        }
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            timeInMillis,
+            pendingIntent
+        )
     }
 
     private val requestPermissionLauncher =

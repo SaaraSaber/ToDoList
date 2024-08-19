@@ -1,6 +1,5 @@
 package ir.developer.todolist
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -9,17 +8,12 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import ir.developer.todolist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
-    }
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

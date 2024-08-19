@@ -56,8 +56,6 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.sdp.android)
     implementation(libs.ssp.android)
-    implementation(libs.calligraphy)
-    implementation(libs.viewpump)
     implementation(libs.lottie)
     implementation(libs.pie.chart)
     implementation(libs.mp.android.chart)

@@ -1,11 +1,9 @@
 package ir.developer.todolist.global
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
-import io.github.inflationx.calligraphy3.CalligraphyConfig
-import io.github.inflationx.calligraphy3.CalligraphyInterceptor
-import io.github.inflationx.viewpump.ViewPump
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.datamodel.CompletedTaskModel
 import ir.developer.todolist.datamodel.TabModel
@@ -18,26 +16,20 @@ class AppController : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        //font
-        ViewPump.init(
-            ViewPump.builder()
-                .addInterceptor(
-                    CalligraphyInterceptor(
-                        CalligraphyConfig.Builder()
-                            .setDefaultFontPath("fonts/yakanbakhmedium.ttf")
-                            .build()
-                    )
-                )
-                .build()
+        val channelId = "alarm_id"
+        val channelName = "alarm_name"
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channel = NotificationChannel(
+            channelId,
+            channelName,
+            NotificationManager.IMPORTANCE_HIGH
         )
+        notificationManager.createNotificationChannel(channel)
 
         if (!checkEnterToAppForFirst()) {
             saveEnterToAppForFirst()
         }
-    }
-
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase!!))
     }
 
     private lateinit var sharedPreferencesGame: SharedPreferencesGame
