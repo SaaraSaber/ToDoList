@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -89,7 +88,8 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             // Device does not support required permission
-            Toast.makeText(this, "No required permission", Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, "No required permission", Toast.LENGTH_LONG).show()
+            Log.d("POST_NOTIFICATION_PERMISSION", "No required permission")
         }
     }
 

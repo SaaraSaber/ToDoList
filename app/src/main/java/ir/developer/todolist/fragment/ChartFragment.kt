@@ -37,7 +37,7 @@ class ChartFragment : Fragment() {
         entries.add(PieEntry(completedTask.toFloat(), "کارهای انجام شده"))
         entries.add(PieEntry(notDoneTask.toFloat(), "کارهای انجام نشده"))
 
-        val dataSet = PieDataSet(entries, "راهنما: ")
+        val dataSet = PieDataSet(entries,"")
         dataSet.setColors(
             intArrayOf(R.color.underwaterMoonlight, R.color.red),
             requireContext()
