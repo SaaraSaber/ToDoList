@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black">#EDECEC</color>
+    <color name="white">#282828</color>
+
+    <color name="colorBackground">#000000</color>
+    <color name="colorBackgroundNavigation">#282828</color>
+    <color name="snowDay">#F6F4EB</color>
+    <color name="snowDay200">#282828</color>
+    <color name="medicalMask">#9EC8B9</color>
+    <color name="bluePromise">#749BC2</color>
+    <color name="underwaterMoonlight">#5C8374</color>
+    <color name="gray">#7A7D80</color>
+    <color name="distantWindChime">#2E2C2C</color>
+    <color name="red">#644302</color>
+    <color name="red200">#978160</color>
+
+</resources>

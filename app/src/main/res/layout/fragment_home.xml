@@ -53,6 +53,14 @@
             android:layoutDirection="rtl"
             android:orientation="vertical">
 
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/btn_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:switchPadding="@dimen/_10sdp"
+                android:text="Light/Dark" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_tasks"
                 android:layout_width="match_parent"

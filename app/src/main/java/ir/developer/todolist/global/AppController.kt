@@ -1,8 +1,7 @@
 package ir.developer.todolist.global
 
 import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import androidx.appcompat.app.AppCompatDelegate
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.datamodel.CompletedTaskModel
 import ir.developer.todolist.datamodel.TabModel
@@ -11,32 +10,31 @@ import ir.developer.todolist.sharedPref.SharedPreferencesGame
 
 class AppController : Application() {
     private lateinit var dataBase: AppDataBase
+    private lateinit var sharedPreferencesGame: SharedPreferencesGame
+
 
     override fun onCreate() {
         super.onCreate()
 
-//        createNotificationChannel()
+        sharedPreferencesGame = SharedPreferencesGame(this)
+
+        setTheme()
 
         if (!checkEnterToAppForFirst()) {
             saveEnterToAppForFirst()
         }
     }
 
-    private fun createNotificationChannel() {
-        val channel = NotificationChannel(
-            "alarm_id",
-            "alarm_name",
-            NotificationManager.IMPORTANCE_HIGH
-        )
-        val manager = getSystemService(NotificationManager::class.java)
-        manager.createNotificationChannel(channel)
-
+    private fun setTheme() {
+        val night = sharedPreferencesGame.readStateTheme()
+        if (night) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
-    private lateinit var sharedPreferencesGame: SharedPreferencesGame
-
     private fun saveEnterToAppForFirst() {
-        sharedPreferencesGame = SharedPreferencesGame(this)
         sharedPreferencesGame.saveStatusFirst(true)
         dataBase = AppDataBase.getDatabase(this)
         insertDataToDbTab()

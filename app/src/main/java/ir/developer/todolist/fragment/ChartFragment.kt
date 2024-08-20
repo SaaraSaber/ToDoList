@@ -45,11 +45,11 @@ class ChartFragment : Fragment() {
 
         val data = PieData(dataSet)
         data.setValueTextSize(10f)
-        data.setDrawValues(false)
+        data.setDrawValues(true)
         binding.pieChart.data = data
 
         binding.pieChart.description.isEnabled = false
-//        binding.pieChart.setUsePercentValues(true)
+        binding.pieChart.setUsePercentValues(true)
         binding.pieChart.isDrawHoleEnabled = true
 //        binding.pieChart.setEntryLabelColor(R.color.white)
         binding.pieChart.animateY(1400, Easing.EaseInOutQuad)

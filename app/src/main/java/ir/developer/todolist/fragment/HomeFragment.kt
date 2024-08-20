@@ -24,6 +24,7 @@ import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat.finishAfterTransition
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -44,6 +45,7 @@ import ir.developer.todolist.datamodel.TaskModel
 import ir.developer.todolist.global.ClickOnCategory
 import ir.developer.todolist.global.ClickOnTab
 import ir.developer.todolist.global.ClickOnTask
+import ir.developer.todolist.sharedPref.SharedPreferencesGame
 import java.util.Calendar
 
 @SuppressLint("MissingInflatedId", "DefaultLocale")
@@ -60,6 +62,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     private lateinit var dialogCategory: Dialog
     private lateinit var dialogAlarm: Dialog
     private val adapterTasks by lazy { TaskAdapter(this) }
+    private lateinit var sharedPreferencesGame: SharedPreferencesGame
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -83,6 +86,26 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         }
 
         binding.btnAddTask.setOnClickListener { dialogAddTask() }
+
+        setTheme()
+    }
+
+    private fun setTheme() {
+        sharedPreferencesGame = SharedPreferencesGame(requireContext())
+        val nightMode = sharedPreferencesGame.readStateTheme()
+        if (nightMode) {
+            binding.btnSwitch.isChecked = true
+        }
+
+        binding.btnSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (!isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                sharedPreferencesGame.saveStateTheme(false)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                sharedPreferencesGame.saveStateTheme(true)
+            }
+        }
     }
 
     private fun dialogQuestion(
@@ -170,7 +193,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         val task = dataBase.task().readTasks()
         val allTask = dataBase.completedTask().readTasks().allTask
         val completedTask = dataBase.completedTask().readTasks().completedTask
-
 
         if (task != null) {
 
@@ -369,7 +391,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
         val intent = Intent(context, AlarmReceiver::class.java).apply {
 
-            putExtra("EXTRA_MESSAGE",editTextTask.text.toString())
+            putExtra("EXTRA_MESSAGE", editTextTask.text.toString())
         }
         val pendingIntent = PendingIntent.getBroadcast(
             context,
