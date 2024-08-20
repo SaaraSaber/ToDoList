@@ -95,22 +95,22 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         val nightMode = sharedPreferencesGame.readStateTheme()
         if (nightMode) {
             binding.btnSwitch.isChecked = true
-            binding.btnSwitch.text = "روز"
+//            binding.btnSwitch.text = "روز"
         } else {
             binding.btnSwitch.isChecked = false
-            binding.btnSwitch.text = "شب"
+//            binding.btnSwitch.text = "شب"
         }
 
         binding.btnSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 sharedPreferencesGame.saveStateTheme(false)
-                binding.btnSwitch.text = "شب"
+//                binding.btnSwitch.text = "شب"
 
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 sharedPreferencesGame.saveStateTheme(true)
-                binding.btnSwitch.text = "روز"
+//                binding.btnSwitch.text = "روز"
 
             }
         }

@@ -53,20 +53,34 @@
             android:layoutDirection="rtl"
             android:orientation="vertical">
 
-            <androidx.appcompat.widget.SwitchCompat
+            <!--            <androidx.appcompat.widget.SwitchCompat-->
+            <!--                android:id="@+id/btn_switch"-->
+            <!--                style="@style/text_task"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:gravity="center"-->
+            <!--                android:layoutDirection="rtl"-->
+            <!--                tools:text="تم دارک"-->
+            <!--                android:thumb="@drawable/thumb"-->
+            <!--                app:showText="true"-->
+            <!--                app:switchPadding="@dimen/_10sdp"-->
+            <!--                app:thumbTextPadding="@dimen/_2sdp"-->
+            <!--                app:thumbTint="@color/medicalMask"-->
+            <!--                app:track="@drawable/track"-->
+            <!--                app:trackTint="@color/underwaterMoonlight" />-->
+
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/btn_switch"
-                style="@style/text_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layoutDirection="rtl"
-                tools:text="تم دارک"
+                android:textOff="روز"
+                android:textOn="شب"
                 android:thumb="@drawable/thumb"
                 app:showText="true"
-                app:switchPadding="@dimen/_10sdp"
-                app:thumbTextPadding="@dimen/_2sdp"
-                app:thumbTint="@color/medicalMask"
+                app:switchTextAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:thumbTint="@color/white"
                 app:track="@drawable/track"
+                app:trackDecoration="@drawable/track"
                 app:trackTint="@color/underwaterMoonlight" />
 
             <androidx.recyclerview.widget.RecyclerView
