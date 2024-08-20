@@ -9,6 +9,7 @@ import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
 import ir.developer.todolist.R
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.databinding.FragmentChartBinding
@@ -34,25 +35,49 @@ class ChartFragment : Fragment() {
         getDataChartFromDatabase()
 
         val entries = ArrayList<PieEntry>()
-        entries.add(PieEntry(completedTask.toFloat(), "کارهای انجام شده"))
-        entries.add(PieEntry(notDoneTask.toFloat(), "کارهای انجام نشده"))
+        entries.add(PieEntry(completedTask.toFloat(), "%"))
+        entries.add(PieEntry(notDoneTask.toFloat(), "%"))
 
-        val dataSet = PieDataSet(entries,"")
+        val dataSet = PieDataSet(entries, "")
         dataSet.setColors(
             intArrayOf(R.color.underwaterMoonlight, R.color.red),
             requireContext()
         )
 
+        // on below line we are setting pie data set
         val data = PieData(dataSet)
-        data.setValueTextSize(10f)
         data.setDrawValues(true)
+        data.setValueTextSize(15f)
+        data.setValueFormatter(PercentFormatter())
+//        data.setValueTypeface(Typeface.DEFAULT_BOLD)
+
         binding.pieChart.data = data
 
         binding.pieChart.description.isEnabled = false
         binding.pieChart.setUsePercentValues(true)
+
+        //Having a circle in the pieChart
         binding.pieChart.isDrawHoleEnabled = true
-//        binding.pieChart.setEntryLabelColor(R.color.white)
+
+        // on below line we are setting center text
+        binding.pieChart.centerText = "وضعیت پیشرفت"
+
+        // on  below line we are setting hole radius
+        binding.pieChart.holeRadius = 30f
+        binding.pieChart.transparentCircleRadius = 35f
+
+        // enable rotation of the pieChart by touch
+        binding.pieChart.isRotationEnabled = false
+        binding.pieChart.isHighlightPerTapEnabled = false
+
+        // on below line we are disabling our legend for pie chart
+        binding.pieChart.legend.isEnabled = false
+        binding.pieChart.legend.textSize = 13f
+        binding.pieChart.legend.textColor = requireContext().getColor(R.color.black)
+
+        // on below line we are setting animation for our pie chart
         binding.pieChart.animateY(1400, Easing.EaseInOutQuad)
+
         binding.pieChart.invalidate() // Refresh chart
     }
 
