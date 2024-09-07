@@ -24,7 +24,6 @@ import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat.finishAfterTransition
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -45,7 +44,6 @@ import ir.developer.todolist.datamodel.TaskModel
 import ir.developer.todolist.global.ClickOnCategory
 import ir.developer.todolist.global.ClickOnTab
 import ir.developer.todolist.global.ClickOnTask
-import ir.developer.todolist.sharedPref.SharedPreferencesGame
 import java.util.Calendar
 
 @SuppressLint("MissingInflatedId", "DefaultLocale")
@@ -62,7 +60,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     private lateinit var dialogCategory: Dialog
     private lateinit var dialogAlarm: Dialog
     private val adapterTasks by lazy { TaskAdapter(this) }
-    private lateinit var sharedPreferencesGame: SharedPreferencesGame
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,34 +84,8 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
         binding.btnAddTask.setOnClickListener { dialogAddTask() }
 
-        setTheme()
     }
 
-    private fun setTheme() {
-        sharedPreferencesGame = SharedPreferencesGame(requireContext())
-        val nightMode = sharedPreferencesGame.readStateTheme()
-        if (nightMode) {
-            binding.btnSwitch.isChecked = true
-//            binding.btnSwitch.text = "روز"
-        } else {
-            binding.btnSwitch.isChecked = false
-//            binding.btnSwitch.text = "شب"
-        }
-
-        binding.btnSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (!isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                sharedPreferencesGame.saveStateTheme(false)
-//                binding.btnSwitch.text = "شب"
-
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                sharedPreferencesGame.saveStateTheme(true)
-//                binding.btnSwitch.text = "روز"
-
-            }
-        }
-    }
 
     private fun dialogQuestion(
         index: Int,
@@ -386,8 +357,8 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
                 setAlarm(calendar.timeInMillis)
                 dialogAlarm.dismiss()
+                getPermission()
             }
-
 
 //            btnOk.setOnClickListener { getPermission() }
             show()
@@ -454,7 +425,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
             val intent = Intent(AlarmClock.ACTION_SET_ALARM)
             intent.putExtra(AlarmClock.EXTRA_HOUR, h.toString().toInt())
             intent.putExtra(AlarmClock.EXTRA_MINUTES, m.toString().toInt())
-            intent.putExtra(AlarmClock.EXTRA_MESSAGE, "set alarm for ${editTextTask.text}")
+            intent.putExtra(AlarmClock.EXTRA_MESSAGE, "${editTextTask.text}")
 
             startActivity(intent)
         }
@@ -583,6 +554,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
     private lateinit var nameCategory: String
     private lateinit var newList: ArrayList<TaskModel>
+
     override fun clickOnTab(index: Int, name: String) {
         nameCategory = name
         listTab.forEach {
@@ -613,6 +585,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
     }
 
     private lateinit var newAdapterTask: TaskAdapter
+
     private fun newListTasks(newList: List<TaskModel>) {
         newAdapterTask = TaskAdapter(object : ClickOnTask {
             override fun clickOnTask(index: Int, checkBox: CheckBox) {

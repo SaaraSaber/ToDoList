@@ -15,8 +15,8 @@ class TabAdapter(
     private val list: ArrayList<TabModel>,
     private val context: Context,
     private val onClick: ClickOnTab
-) :
-    RecyclerView.Adapter<TabAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TabAdapter.ViewHolder>() {
+
     private lateinit var binding: LayoutRecyclerViewTabBinding
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
@@ -40,6 +40,7 @@ class TabAdapter(
         val data = list[holder.adapterPosition]
 
         holder.text.text = data.name
+
         if (data.isSelected) {
             holder.text.setTextColor(ContextCompat.getColor(context, R.color.white))
             holder.layout.background =

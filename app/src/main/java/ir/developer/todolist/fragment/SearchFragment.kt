@@ -72,13 +72,11 @@ class SearchFragment : Fragment(), ClickOnTask {
             }
 
             if (filterList.isEmpty()) {
-//                Toast.makeText(requireContext(), "متاسفانه کاری پیدا نشده", Toast.LENGTH_SHORT)
-//                    .show()
-                binding.textNoData.visibility=View.VISIBLE
+                binding.textNoData.visibility = View.VISIBLE
                 initRecyclerViewResultTask()
                 adapterTask.differ.submitList(filterList)
             } else {
-                binding.textNoData.visibility=View.GONE
+                binding.textNoData.visibility = View.GONE
                 initRecyclerViewResultTask()
                 adapterTask.differ.submitList(filterList)
                 adapterTask.setFilteredList(filterList)
@@ -157,7 +155,8 @@ class SearchFragment : Fragment(), ClickOnTask {
             TaskModel(
                 listTask[index].id,
                 listTask[index].task,
-                listTask[index].category)
+                listTask[index].category
+            )
         )
         listTask.removeAt(index)
         adapterTask.differ.submitList(listTask)

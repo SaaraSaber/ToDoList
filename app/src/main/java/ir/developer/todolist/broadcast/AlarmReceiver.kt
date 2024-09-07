@@ -8,7 +8,6 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import ir.developer.todolist.MainActivity
 import ir.developer.todolist.R
-import ir.developer.todolist.service.AlarmService
 
 class AlarmReceiver : BroadcastReceiver() {
 
@@ -27,15 +26,13 @@ class AlarmReceiver : BroadcastReceiver() {
             val notificationManager =
                 ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val builder = NotificationCompat.Builder(ctx, channelId)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.logo_app)
                 .setContentTitle("To Do List")
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
             notificationManager.notify(1, builder.build())
         }
-        val serviceIntent = Intent(context, AlarmService::class.java)
-        context.startForegroundService(serviceIntent)
 
     }
 }

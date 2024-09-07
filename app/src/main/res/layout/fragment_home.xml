@@ -53,36 +53,6 @@
             android:layoutDirection="rtl"
             android:orientation="vertical">
 
-            <!--            <androidx.appcompat.widget.SwitchCompat-->
-            <!--                android:id="@+id/btn_switch"-->
-            <!--                style="@style/text_task"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:gravity="center"-->
-            <!--                android:layoutDirection="rtl"-->
-            <!--                tools:text="تم دارک"-->
-            <!--                android:thumb="@drawable/thumb"-->
-            <!--                app:showText="true"-->
-            <!--                app:switchPadding="@dimen/_10sdp"-->
-            <!--                app:thumbTextPadding="@dimen/_2sdp"-->
-            <!--                app:thumbTint="@color/medicalMask"-->
-            <!--                app:track="@drawable/track"-->
-            <!--                app:trackTint="@color/underwaterMoonlight" />-->
-
-            <com.google.android.material.materialswitch.MaterialSwitch
-                android:id="@+id/btn_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textOff="روز"
-                android:textOn="شب"
-                android:thumb="@drawable/thumb"
-                app:showText="true"
-                app:switchTextAppearance="@style/TextAppearance.AppCompat.Subhead"
-                app:thumbTint="@color/white"
-                app:track="@drawable/track"
-                app:trackDecoration="@drawable/track"
-                app:trackTint="@color/underwaterMoonlight" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_tasks"
                 android:layout_width="match_parent"
@@ -111,7 +81,6 @@
         android:id="@+id/btn_add_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
         android:background="@color/underwaterMoonlight"
         android:padding="@dimen/_2sdp"
         android:src="@drawable/vector_add"

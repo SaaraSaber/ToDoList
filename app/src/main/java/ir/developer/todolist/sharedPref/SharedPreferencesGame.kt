@@ -26,22 +26,4 @@ class SharedPreferencesGame(private val context: Context) {
         return sharedPreferences.getBoolean(Utils.STATUS_LOGIN, false)
     }
 
-    fun saveStateTheme(night:Boolean){
-        sharedPreferences = context.getSharedPreferences(
-            "SaveStatusNight",
-            Context.MODE_PRIVATE
-        )
-        val edSharedPreferences = sharedPreferences.edit()
-        edSharedPreferences.putBoolean(Utils.STATUS_THEME, night)
-        edSharedPreferences.apply()
-    }
-
-    fun readStateTheme(): Boolean {
-        sharedPreferences = context.getSharedPreferences(
-            "SaveStatusNight",
-            Context.MODE_PRIVATE
-        )
-        return sharedPreferences.getBoolean(Utils.STATUS_THEME, false)
-    }
-
 }

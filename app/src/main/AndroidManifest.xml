@@ -36,10 +36,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.AlarmService"
-            android:exported="false"
-            android:foregroundServiceType="mediaPlayback"/>
-
         <receiver android:name=".broadcast.AlarmReceiver" />
 
     </application>

@@ -39,9 +39,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             when (destination.id) {
-//                R.id.splashFragment -> {
-//                    binding.bottomNavigation.visibility = View.GONE
-//                }
+
                 R.id.categoryFragment -> {
                     binding.bottomNavigation.visibility = View.GONE
                 }
@@ -90,6 +88,7 @@ class MainActivity : AppCompatActivity() {
             // Device does not support required permission
 //            Toast.makeText(this, "No required permission", Toast.LENGTH_LONG).show()
             Log.d("POST_NOTIFICATION_PERMISSION", "No required permission")
+            createNotificationChannel()
         }
     }
 
