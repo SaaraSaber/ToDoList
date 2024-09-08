@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/colorBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -12,27 +13,70 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_between_object"
-        app:defaultNavHost="true"
         android:layout_above="@+id/bottom_navigation"
+        app:defaultNavHost="true"
         app:navGraph="@navigation/navigation_graph"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
-        app:itemTextAppearanceActive="@style/FontBottomNavigationView"
-        app:itemTextAppearanceInactive="@style/FontBottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/layout_advertising"
         android:layout_gravity="bottom"
-        android:background="@color/colorBackgroundNavigation"
-        android:outlineAmbientShadowColor="@color/black"
+        android:background="@color/white"
         android:layoutDirection="rtl"
+        android:padding="@dimen/_5sdp"
         app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextAppearanceActive="@style/FontBottomNavigationView"
+        app:itemTextAppearanceInactive="@style/FontBottomNavigationView"
         app:itemTextColor="@color/bottom_nav_color"
         app:labelVisibilityMode="selected"
         app:menu="@menu/menu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_advertising"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:background="#FFEC9E"
+            android:text="نصب"
+            android:textColor="#FF6462"
+            app:backgroundTint="#FFEC9E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/text_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:text="@string/text_advertising"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/materialButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/logo_chistan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

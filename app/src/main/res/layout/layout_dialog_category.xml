@@ -6,26 +6,31 @@
     android:layout_height="wrap_content"
     android:layout_gravity="top"
     android:layout_margin="@dimen/_50sdp"
-    android:minHeight="@dimen/_180sdp"
     android:background="@drawable/simple_background_dialog_question"
     android:gravity="end"
-    android:orientation="vertical"
-    android:padding="@dimen/_10sdp">
+    android:minHeight="@dimen/_180sdp"
+    android:orientation="vertical">
 
     <TextView
         style="@style/text_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:justificationMode="inter_word"
-        android:textSize="@dimen/_14ssp"
-        android:text="@string/text_dialog_category" />
+        android:text="@string/text_dialog_category"
+        android:textSize="@dimen/_14ssp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layoutDirection="rtl"
+        android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/margin_between_object"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layoutDirection="rtl"
         tools:itemCount="4"
         tools:listitem="@layout/layout_recycler_view_category" />
 

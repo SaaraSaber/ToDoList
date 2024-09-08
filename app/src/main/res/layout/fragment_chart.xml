@@ -6,15 +6,14 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="@dimen/padding_all_screen">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView"
         style="@style/text_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_between_object"
+        android:layout_marginTop="@dimen/_20sdp"
         android:text="وضعیت پیشرفت"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
@@ -22,139 +21,194 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_between_object"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_5sdp"
-            android:layout_weight="1"
-            android:background="@drawable/simple_background_edit_text_add_task"
-            android:backgroundTint="#DDE5EB"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/_15sdp">
-
-            <TextView
-                android:id="@+id/text_number_completed"
-                style="@style/text_task"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/underwaterMoonlight"
-                tools:text="12" />
-
-            <TextView
-                style="@style/text_editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="انجام شده"
-                android:textColor="@color/bluePromise" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_weight="1"
-            android:background="@drawable/simple_background_edit_text_add_task"
-            android:backgroundTint="#F4EBEB"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/_15sdp">
-
-            <TextView
-                android:id="@+id/text_number_not_done"
-                style="@style/text_task"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/red"
-                tools:text="12" />
-
-            <TextView
-                style="@style/text_editText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:text="انجام نشده"
-                android:textColor="@color/red200" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="@dimen/_250sdp"
-        android:layout_height="@dimen/_250sdp"
-        android:layoutDirection="rtl"
-        android:textDirection="rtl"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_between_object"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pieChart">
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end|center_vertical"
-            android:orientation="horizontal"
-            tools:ignore="UseAppTint">
+            android:layout_height="match_parent">
 
-            <TextView
-                style="@style/text_task"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_between_object"
-                android:text="کار های انجام شده"
-                android:textSize="@dimen/_12ssp" />
+                android:layout_marginStart="@dimen/padding_all_screen"
+                android:layout_marginEnd="@dimen/padding_all_screen"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/simple_background_edit_text_add_task"
+                    android:backgroundTint="#DDE5EB"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_number_completed"
+                        style="@style/text_task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_all_screen"
+                        android:textColor="@color/underwaterMoonlight"
+                        tools:text="12" />
+
+                    <TextView
+                        style="@style/text_editText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/padding_all_screen"
+                        android:text="انجام شده"
+                        android:textColor="@color/bluePromise" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/simple_background_edit_text_add_task"
+                    android:backgroundTint="#F4EBEB"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text_number_not_done"
+                        style="@style/text_task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_all_screen"
+                        android:textColor="@color/red"
+                        tools:text="12" />
+
+                    <TextView
+                        style="@style/text_editText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/padding_all_screen"
+                        android:text="انجام نشده"
+                        android:textColor="@color/red200" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="@dimen/_200sdp"
+                android:layout_marginStart="@dimen/padding_all_screen"
+                android:layout_marginTop="@dimen/padding_all_screen"
+                android:layout_marginEnd="@dimen/padding_all_screen"
+                android:layout_marginBottom="@dimen/padding_all_screen"
+                android:layoutDirection="rtl"
+                android:textDirection="rtl"
+
+                app:layout_constraintBottom_toTopOf="@+id/layout_help_chart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
             <ImageView
-                android:layout_width="@dimen/_12sdp"
-                android:layout_height="@dimen/_12sdp"
-                android:src="@drawable/vector_dot"
-                android:tint="@color/underwaterMoonlight" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="end|center_vertical"
-            android:orientation="horizontal"
-            tools:ignore="UseAppTint">
+                android:id="@+id/img_chart"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_150sdp"
+                android:src="@drawable/pic_chart"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/text_task"
-                android:layout_width="wrap_content"
+                android:id="@+id/textNoData"
+                style="@style/text_category"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_between_object"
-                android:text="کار های انجام نشده"
-                android:textSize="@dimen/_12ssp" />
+                android:layout_marginStart="@dimen/padding_all_screen"
+                android:layout_marginTop="@dimen/padding_all_screen"
+                android:layout_marginEnd="@dimen/padding_all_screen"
+                android:gravity="center"
+                android:text="داده ای برای نمایش نداریم"
+                android:textSize="@dimen/_18ssp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_chart" />
 
-            <ImageView
-                android:layout_width="@dimen/_12sdp"
-                android:layout_height="@dimen/_12sdp"
-                android:src="@drawable/vector_dot"
-                android:tint="@color/red" />
+            <LinearLayout
+                android:id="@+id/layout_help_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_all_screen"
+                android:layout_marginTop="@dimen/margin_between_object"
+                android:layout_marginEnd="@dimen/padding_all_screen"
+                android:layout_marginBottom="@dimen/padding_all_screen"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-        </LinearLayout>
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end|center_vertical"
+                    android:orientation="horizontal"
+                    tools:ignore="UseAppTint">
+
+                    <TextView
+                        style="@style/text_task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_between_object"
+                        android:text="کار های انجام شده"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:src="@drawable/vector_dot"
+                        android:tint="@color/underwaterMoonlight" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="end|center_vertical"
+                    android:orientation="horizontal"
+                    tools:ignore="UseAppTint">
+
+                    <TextView
+                        style="@style/text_task"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_between_object"
+                        android:text="کار های انجام نشده"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:src="@drawable/vector_dot"
+                        android:tint="@color/red" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,25 @@ class ChartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setChart()
+
+        dataBase = AppDataBase.getDatabase(requireContext())
+        val allTask = dataBase.completedTask().readTasks().allTask
+
+        if (allTask != 0) {
+            binding.imgChart.visibility = View.GONE
+            binding.textNoData.visibility = View.GONE
+            binding.pieChart.visibility = View.VISIBLE
+            binding.layoutHelpChart.visibility = View.VISIBLE
+            binding.linearLayout2.visibility = View.VISIBLE
+            setChart()
+        } else {
+            binding.imgChart.visibility = View.VISIBLE
+            binding.textNoData.visibility = View.VISIBLE
+            binding.pieChart.visibility = View.GONE
+            binding.layoutHelpChart.visibility = View.GONE
+            binding.linearLayout2.visibility = View.GONE
+        }
+
     }
 
     private fun setChart() {
@@ -85,8 +103,7 @@ class ChartFragment : Fragment() {
     private var notDoneTask: Int = 0
 
     private fun getDataChartFromDatabase() {
-        dataBase = AppDataBase.getDatabase(requireContext())
-//        val allTask = dataBase.completedTask().readTasks().allTask
+
         completedTask = dataBase.completedTask().readTasks().completedTask
         notDoneTask = dataBase.completedTask().readTasks().notDoneTask
 

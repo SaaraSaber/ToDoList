@@ -46,6 +46,7 @@ import ir.developer.todolist.global.ClickOnTab
 import ir.developer.todolist.global.ClickOnTask
 import java.util.Calendar
 
+
 @SuppressLint("MissingInflatedId", "DefaultLocale")
 class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
@@ -84,6 +85,10 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
         binding.btnAddTask.setOnClickListener { dialogAddTask() }
 
+//        binding.textAdvertising.setOnClickListener {
+//            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://cafebazaar.ir/app/ir.developre.chistangame"))
+//            startActivity(browserIntent)
+//        }
     }
 
 

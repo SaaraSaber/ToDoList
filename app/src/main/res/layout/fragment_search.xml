@@ -5,14 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="@dimen/padding_all_screen">
+    android:orientation="vertical">
 
     <SearchView
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/padding_all_screen"
         android:iconifiedByDefault="false"
         android:layoutDirection="rtl"
         android:padding="4dp"
@@ -34,7 +33,10 @@
                 android:id="@+id/recycler_view_result_task"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_all_screen"
                 android:layout_marginTop="@dimen/margin_between_object"
+                android:layout_marginEnd="@dimen/padding_all_screen"
+                android:layout_marginBottom="@dimen/padding_all_screen"
                 android:visibility="visible"
                 tools:itemCount="5"
                 tools:listitem="@layout/layout_recycler_view_task" />
@@ -44,19 +46,23 @@
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_200sdp"
                 android:layout_marginTop="@dimen/_100sdp"
-                android:src="@drawable/pic_empty_list" />
+                android:src="@drawable/pic_empty_list"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/textNoData"
                 style="@style/text_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_100sdp"
+                android:layout_marginStart="@dimen/padding_all_screen"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/padding_all_screen"
+                android:layout_marginBottom="@dimen/padding_all_screen"
                 android:gravity="center"
                 android:text="متاسفانه چیزی پیدا نشد!"
                 android:textSize="@dimen/_20ssp"
-                android:visibility="gone"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
