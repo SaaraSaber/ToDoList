@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/padding_all_screen"
+    android:layout_marginTop="@dimen/padding_all_screen"
+    android:layout_marginEnd="@dimen/padding_all_screen"
+    android:layout_marginStart="@dimen/padding_all_screen"
+    android:layout_marginBottom="@dimen/_5sdp"
     android:background="@color/colorBackground">
 
     <LinearLayout
