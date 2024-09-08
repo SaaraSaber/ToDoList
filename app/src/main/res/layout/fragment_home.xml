@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    android:layout_margin="@dimen/padding_all_screen">
+    android:layout_margin="@dimen/padding_all_screen"
+    android:background="@color/colorBackground">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -43,8 +43,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_between_object"
         android:scrollbars="none"
-        android:layout_marginBottom="@dimen/margin_between_object"
-        app:layout_constraintBottom_toTopOf="@+id/text_advertising"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:layout_editor_absoluteX="19dp">
 
@@ -59,7 +59,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_between_object"
+                android:layout_marginBottom="@dimen/_25sdp"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:overScrollMode="never"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 tools:itemCount="4"
@@ -83,9 +85,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/underwaterMoonlight"
+        android:elevation="0dp"
         android:padding="@dimen/_2sdp"
         android:src="@drawable/vector_add"
         app:backgroundTint="@color/underwaterMoonlight"
+        app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:tint="@color/white" />

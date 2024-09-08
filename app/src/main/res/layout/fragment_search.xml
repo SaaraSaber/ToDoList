@@ -21,6 +21,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
+
         android:scrollbars="none">
 
         <LinearLayout
@@ -38,6 +40,8 @@
                 android:layout_marginEnd="@dimen/padding_all_screen"
                 android:layout_marginBottom="@dimen/padding_all_screen"
                 android:visibility="visible"
+                android:overScrollMode="never"
+
                 tools:itemCount="5"
                 tools:listitem="@layout/layout_recycler_view_task" />
 

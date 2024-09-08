@@ -85,10 +85,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
 
         binding.btnAddTask.setOnClickListener { dialogAddTask() }
 
-//        binding.textAdvertising.setOnClickListener {
-//            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://cafebazaar.ir/app/ir.developre.chistangame"))
-//            startActivity(browserIntent)
-//        }
     }
 
 

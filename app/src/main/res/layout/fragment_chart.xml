@@ -26,6 +26,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_between_object"
         android:scrollbars="none"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
@@ -124,6 +125,7 @@
                 android:id="@+id/img_chart"
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_150sdp"
+                android:layout_marginTop="@dimen/_100sdp"
                 android:src="@drawable/pic_chart"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
