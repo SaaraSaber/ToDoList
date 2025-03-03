@@ -3,9 +3,7 @@ package ir.developer.todolist
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -19,11 +17,14 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import ir.developer.todolist.databinding.ActivityMainBinding
+import ir.developer.todolist.global.NetworkUtil
+import ir.developer.todolist.tapsell.TapsellAd
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private lateinit var tapsellAd: TapsellAd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,11 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.my_nav_host_fragment)
         binding.bottomNavigation.setupWithNavController(navController)
-
+        if (NetworkUtil.isInternetAvailable(this)) {
+            tapsellAd = TapsellAd(this)
+            tapsellAd.connectToTapsell()
+            tapsellAd.requestStandardBannerAd()
+        }
         requestNotificationPermission()
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -44,25 +49,15 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.categoryFragment -> {
                     binding.bottomNavigation.visibility = View.GONE
+                    binding.standardBanner.visibility = View.GONE
                 }
 
                 else -> {
                     binding.bottomNavigation.visibility = View.VISIBLE
+                    binding.standardBanner.visibility = View.VISIBLE
                 }
             }
         }
-
-        binding.btnClose.setOnClickListener {
-            binding.layoutAdvertising.visibility = View.GONE
-        }
-        binding.btnAdvertising.setOnClickListener {
-            val browserIntent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://cafebazaar.ir/app/ir.developre.chistangame")
-            )
-            startActivity(browserIntent)
-        }
-
     }
 
     private var requestPermissionLauncher: ActivityResultLauncher<String> =

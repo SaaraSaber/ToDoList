@@ -80,7 +80,7 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         readDataTask()
 
         binding.btnMore.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment2_to_categoryFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_categoryFragment)
         }
 
         binding.btnAddTask.setOnClickListener { dialogAddTask() }

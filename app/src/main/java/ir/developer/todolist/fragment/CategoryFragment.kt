@@ -1,6 +1,5 @@
 package ir.developer.todolist.fragment
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -22,8 +21,9 @@ import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.databinding.FragmentCategoryBinding
 import ir.developer.todolist.datamodel.TabModel
 import ir.developer.todolist.global.ClickOnCategory
+import ir.developer.todolist.global.NetworkUtil
+import ir.developer.todolist.tapsell.TapsellAd
 
-@SuppressLint("MissingInflatedId")
 class CategoryFragment : Fragment(), ClickOnCategory {
     private lateinit var binding: FragmentCategoryBinding
     private lateinit var adapterManageCategory: ManageCategoryAdapter
@@ -31,6 +31,7 @@ class CategoryFragment : Fragment(), ClickOnCategory {
     private lateinit var dataBase: AppDataBase
     private lateinit var dialogAddCategory: Dialog
     private lateinit var dialogQuestion: Dialog
+    private lateinit var tapsellAd: TapsellAd
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +49,11 @@ class CategoryFragment : Fragment(), ClickOnCategory {
 
         binding.btnBack.setOnClickListener { findNavController().popBackStack() }
         binding.btnAddCategory.setOnClickListener { dialogAddCategory() }
+        if (NetworkUtil.isInternetAvailable(requireContext())) {
+            tapsellAd = TapsellAd(requireActivity())
+            tapsellAd.connectToTapsell()
+            tapsellAd.requestVideoAd()
+        }
     }
 
     private lateinit var enterNewCategory: EditText

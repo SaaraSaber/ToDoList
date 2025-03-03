@@ -15,6 +15,7 @@ sdp-android = "1.1.1"
 lottie = "5.0.3"
 pieChart = "1.1.5"
 mp-android-chart = "v3.1.0"
+tapsellPlusSdkAndroid = "2.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +40,7 @@ lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie"
 #pieChart
 pie-chart = { group = "com.github.AnyChart", name = "AnyChart-Android", version.ref = "pieChart" }
 mp-android-chart= { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "mp-android-chart" }
+tapsell-plus-sdk-android = { module = "ir.tapsell.plus:tapsell-plus-sdk-android", version.ref = "tapsellPlusSdkAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
