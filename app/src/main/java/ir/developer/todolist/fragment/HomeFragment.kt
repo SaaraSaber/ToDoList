@@ -136,8 +136,6 @@ class HomeFragment : Fragment(), ClickOnTab, ClickOnTask {
         adapter.differ.submitList(task)
         adapter.notifyItemRemoved(index)
 
-
-
         if (task.size == 0) {
             binding.imgEmptyList.visibility = View.VISIBLE
             //add data to database completedTask

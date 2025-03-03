@@ -17,6 +17,7 @@ import ir.developer.todolist.R
 import ir.developer.todolist.adapter.TaskAdapter
 import ir.developer.todolist.database.AppDataBase
 import ir.developer.todolist.databinding.FragmentSearchBinding
+import ir.developer.todolist.datamodel.CompletedTaskModel
 import ir.developer.todolist.datamodel.TaskModel
 import ir.developer.todolist.global.ClickOnTask
 import java.util.Locale
@@ -162,7 +163,33 @@ class SearchFragment : Fragment(), ClickOnTask {
         adapterTask.differ.submitList(listTask)
         adapterTask.notifyItemRemoved(index)
 
-        if (listTask.size == 0)
+        if (listTask.size == 0) {
             binding.imgEmptyList.visibility = View.VISIBLE
+            //add data to database completedTask
+
+            dataBase.completedTask()
+                .updateTask(
+                    CompletedTaskModel(
+                        id = 1,
+                        allTask = 0,
+                        completedTask = 0,
+                        notDoneTask = 0
+                    )
+                )
+        } else {
+            //add data to database completedTask
+            val readAllTask = dataBase.completedTask().readTasks().allTask
+            val completedTask = dataBase.completedTask().readTasks().completedTask
+            val notDoneTask = dataBase.completedTask().readTasks().notDoneTask
+            dataBase.completedTask()
+                .updateTask(
+                    CompletedTaskModel(
+                        id = 1,
+                        allTask = readAllTask,
+                        completedTask = completedTask + 1,
+                        notDoneTask = notDoneTask - 1
+                    )
+                )
+        }
     }
 }
